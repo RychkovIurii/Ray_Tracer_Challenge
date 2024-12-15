@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:14:51 by irychkov          #+#    #+#             */
-/*   Updated: 2024/12/15 18:15:59 by irychkov         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:57:21 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,38 @@ t_tuple		substract_tuple(t_tuple a, t_tuple b)
 	tuple.y = a.y - b.y;
 	tuple.z = a.z - b.z;
 	tuple.w = a.w - b.w;
+	return (tuple);
+}
+
+t_tuple		negate_tuple(t_tuple a)
+{
+	t_tuple tuple;
+
+	tuple.x = -a.x;
+	tuple.y = -a.y;
+	tuple.z = -a.z;
+	tuple.w = -a.w;
+	return (tuple);
+}
+
+t_tuple		multiply_tuple(t_tuple a, double scalar)
+{
+	t_tuple tuple;
+
+	tuple.x = a.x * scalar;
+	tuple.y = a.y * scalar;
+	tuple.z = a.z * scalar;
+	tuple.w = a.w * scalar;
+	return (tuple);
+}
+
+t_tuple		divide_tuple(t_tuple a, double scalar)
+{
+	t_tuple tuple;
+
+	tuple.x = a.x / scalar;
+	tuple.y = a.y / scalar;
+	tuple.z = a.z / scalar;
+	tuple.w = a.w / scalar;
 	return (tuple);
 }
