@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:14:51 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 14:29:41 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:15:01 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_tuple	negate_tuple(t_tuple a)
 	return (tuple);
 }
 
-t_tuple	multiply_tuple(t_tuple a, double scalar)
+t_tuple	multiply_tuple_scalar(t_tuple a, double scalar)
 {
 	t_tuple	tuple;
 

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:47:05 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 14:32:25 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:15:18 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main()
 
 	proj.position = point(0, 1, 0);
 	proj.velocity = normalize(vector(1, 1, 0));
-	proj.velocity = multiply_tuple(proj.velocity, 1.2);
+	proj.velocity = multiply_tuple_scalar(proj.velocity, 1.2);
 	env.gravity = vector(0, -0.1, 0);
 	env.wind = vector(-0.01, 0, 0);
 
