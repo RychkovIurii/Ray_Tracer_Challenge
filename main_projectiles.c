@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:47:05 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 17:23:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:36:23 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* tick(environment, projectile) function which returns a new
 projectile, representing the given projectile after one unit of time has passed. */
 
-typedef struct s_projectile
+/* typedef struct s_projectile
 {
 	t_tuple	position;
 	t_tuple	velocity;
@@ -37,7 +37,7 @@ t_projectile	tick(t_environment env, t_projectile proj)
 	new_proj.position = add_tuple(proj.position, proj.velocity);
 	new_proj.velocity = add_tuple(add_tuple(proj.velocity, env.gravity), env.wind);
 	return (new_proj);
-}
+} */
 
 /* int	main()
 {
