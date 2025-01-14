@@ -6,14 +6,18 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:54:15 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 15:15:24 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:35:32 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef TUPLE_H
+# define TUPLE_H
+
 # define EPSILON	0.0001f
 
-#include <math.h>
-#include <stdio.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 /* We set w to 1.0 to make it a point, and 0.0 to make it a vector. */
 
@@ -47,3 +51,9 @@ double	magnitude(t_tuple v);
 t_tuple	normalize(t_tuple v);
 double	dot(t_tuple a, t_tuple b);
 t_tuple	cross(t_tuple a, t_tuple b);
+
+/* Functions to work with colors. */
+t_tuple	create_color(double r, double g, double b);
+t_tuple	hadamard_product(t_tuple a, t_tuple b);
+
+#endif
