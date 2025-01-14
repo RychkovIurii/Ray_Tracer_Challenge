@@ -6,15 +6,15 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:14:51 by irychkov          #+#    #+#             */
-/*   Updated: 2024/12/15 18:57:21 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:29:41 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tuple.h"
 
-t_tuple		create_tuple(double x, double y, double z, double w)
+t_tuple	create_tuple(double x, double y, double z, double w)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -23,9 +23,9 @@ t_tuple		create_tuple(double x, double y, double z, double w)
 	return (tuple);
 }
 
-t_tuple point(double x, double y, double z)
+t_tuple	point(double x, double y, double z)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -34,9 +34,9 @@ t_tuple point(double x, double y, double z)
 	return (tuple);
 }
 
-t_tuple vector(double x, double y, double z)
+t_tuple	vector(double x, double y, double z)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -45,9 +45,9 @@ t_tuple vector(double x, double y, double z)
 	return (tuple);
 }
 
-t_tuple		add_tuple(t_tuple a, t_tuple b)
+t_tuple	add_tuple(t_tuple a, t_tuple b)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = a.x + b.x;
 	tuple.y = a.y + b.y;
@@ -56,9 +56,9 @@ t_tuple		add_tuple(t_tuple a, t_tuple b)
 	return (tuple);
 }
 
-t_tuple		substract_tuple(t_tuple a, t_tuple b)
+t_tuple	substract_tuple(t_tuple a, t_tuple b)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = a.x - b.x;
 	tuple.y = a.y - b.y;
@@ -67,9 +67,9 @@ t_tuple		substract_tuple(t_tuple a, t_tuple b)
 	return (tuple);
 }
 
-t_tuple		negate_tuple(t_tuple a)
+t_tuple	negate_tuple(t_tuple a)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = -a.x;
 	tuple.y = -a.y;
@@ -78,9 +78,9 @@ t_tuple		negate_tuple(t_tuple a)
 	return (tuple);
 }
 
-t_tuple		multiply_tuple(t_tuple a, double scalar)
+t_tuple	multiply_tuple(t_tuple a, double scalar)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = a.x * scalar;
 	tuple.y = a.y * scalar;
@@ -89,9 +89,9 @@ t_tuple		multiply_tuple(t_tuple a, double scalar)
 	return (tuple);
 }
 
-t_tuple		divide_tuple(t_tuple a, double scalar)
+t_tuple	divide_tuple(t_tuple a, double scalar)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = a.x / scalar;
 	tuple.y = a.y / scalar;
