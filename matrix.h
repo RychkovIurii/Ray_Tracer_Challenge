@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:54 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 15:12:21 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:09:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ double		minor_matrix(t_matrix a, int row, int column);
 double		cofactor_matrix(t_matrix a, int row, int column);
 double		determinant(t_matrix a);
 t_matrix	inverse_matrix(t_matrix a);
+t_matrix	translation_matrix(double x, double y, double z);
 
 #endif

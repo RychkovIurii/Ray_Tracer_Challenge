@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple.c                                            :+:      :+:    :+:   */
+/*   matrix_transformations.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/15 18:07:36 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 16:08:23 by irychkov         ###   ########.fr       */
+/*   Created: 2025/01/16 15:46:44 by irychkov          #+#    #+#             */
+/*   Updated: 2025/01/16 16:08:51 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
+#include "matrix.h"
 
-int	is_tuples_equal(t_tuple a, t_tuple b)
-{
-	if (fabs(a.x - b.x) < EPSILON && fabs(a.y - b.y) < EPSILON &&
-		fabs(a.z - b.z) < EPSILON && fabs(a.w - b.w) < EPSILON)
-		return (1);
-	return (0);
-}
+/* Translation matrix. */
 
-int	is_point(t_tuple a)
+t_matrix	translation_matrix(double x, double y, double z)
 {
-	return (a.w == 1.0);
-}
+	t_matrix	result;
 
-int	is_vector(t_tuple a)
-{
-	return (a.w == 0.0);
+	result = create_matrix(4);
+	result.matrix[0][0] = 1;
+	result.matrix[1][1] = 1;
+	result.matrix[2][2] = 1;
+	result.matrix[3][3] = 1;
+	result.matrix[0][3] = x;
+	result.matrix[1][3] = y;
+	result.matrix[2][3] = z;
+	return (result);
 }

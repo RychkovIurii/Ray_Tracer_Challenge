@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:54:15 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 17:35:32 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:08:43 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_tuple		substract_tuple(t_tuple a, t_tuple b);
 t_tuple		negate_tuple(t_tuple a);
 t_tuple		multiply_tuple_scalar(t_tuple a, double scalar);
 t_tuple		divide_tuple(t_tuple a, double scalar);
-int			equal(t_tuple a, t_tuple b);
+int			is_tuples_equal(t_tuple a, t_tuple b);
 int			is_point(t_tuple a);
 int			is_vector(t_tuple a);
 
