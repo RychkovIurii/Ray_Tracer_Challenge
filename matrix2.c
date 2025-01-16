@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 11:58:17 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:14:47 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,15 @@ t_matrix	submatrix(t_matrix a, int row, int column)
 	return (sub);
 }
 
-double	determinant_2x2(t_matrix a)
-{
-	if (a.size == 2)
-		return (a.matrix[0][0] * a.matrix[1][1] - a.matrix[0][1] * a.matrix[1][0]);
-	return (0);// Handle error: not a 2x2 matrix
-}
+/* Calculate the minor of matrix. */
 
-/* Calculate the minor of a 3x3 matrix (the determinant of the submatrix). */
-
-double	minor_3x3(t_matrix a, int row, int column)
+double	minor_matrix(t_matrix a, int row, int column)
 {
 	t_matrix	sub;
 	double	det;
 
-	if (a.size != 3)
-	{
-		// Handle error: not a 3x3 matrix
-		return (0);
-	}
 	sub = submatrix(a, row, column);
-	det = determinant_2x2(sub);
+	det = determinant(sub);
 	free_matrix(sub);
 	return (det);
 }
@@ -85,12 +73,12 @@ double	minor_3x3(t_matrix a, int row, int column)
 
 /* Calculate the cofactor of a 3x3 matrix. */
 
-double	cofactor_3x3(t_matrix a, int row, int column)
+double	cofactor_matrix(t_matrix a, int row, int column)
 {
 	double	minor;
 	double	cofactor;
 
-	minor = minor_3x3(a, row, column);
+	minor = minor_matrix(a, row, column);
 	if ((row + column) % 2 == 0)
 		cofactor = minor;
 	else
@@ -111,8 +99,48 @@ double	determinant(t_matrix a)
 		return (a.matrix[0][0] * a.matrix[1][1] - a.matrix[0][1] * a.matrix[1][0]);
 	while (i < a.size)
 	{
-		det += a.matrix[0][i] * cofactor_3x3(a, 0, i);
+		det += a.matrix[0][i] * cofactor_matrix(a, 0, i);
 		i++;
 	}
 	return (det);
+}
+
+/* Is matrix invertible */
+
+int		is_invertible(t_matrix a)
+{
+	if (determinant(a) == 0)
+		return (0);
+	return (1);
+}
+
+/* Inverse matrix. */
+
+t_matrix	inverse_matrix(t_matrix a)
+{
+	t_matrix	inverse;
+	double		det;
+	int			i;
+	int			j;
+
+	det = determinant(a);
+	if (det == 0)
+	{
+		// Handle error: matrix is not invertible
+		printf("Matrix is not invertible\n");
+		return (a);
+	}
+	inverse = create_matrix(a.size);
+	i = 0;
+	while (i < a.size)
+	{
+		j = 0;
+		while (j < a.size)
+		{
+			inverse.matrix[j][i] = cofactor_matrix(a, i, j) / det;
+			j++;
+		}
+		i++;
+	}
+	return (inverse);
 }
