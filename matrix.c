@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/15 15:40:46 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:40:15 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	is_matrices_equal(t_matrix a, t_matrix b)
 		j = 0;
 		while (j < a.size)
 		{
-			if (a.matrix[i][j] != b.matrix[i][j])
+			/* if (a.matrix[i][j] != b.matrix[i][j]) */
+			if (fabs(a.matrix[i][j] - b.matrix[i][j]) > 1e-5) // 1e-5 is comparison within a small tolerance
 				return (0);
 			j++;
 		}
