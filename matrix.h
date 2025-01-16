@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:54 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/15 16:17:43 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:01:39 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@ t_tuple		multiply_identity_matrix_by_tuple(t_tuple a);
 t_matrix	transpose_matrix(t_matrix a);
 void		free_matrix(t_matrix matrix);
 t_matrix	submatrix(t_matrix a, int row, int column);
+double	determinant_2x2(t_matrix a);
+double	minor_3x3(t_matrix a, int row, int column);
+double	cofactor_3x3(t_matrix a, int row, int column);
+double	determinant(t_matrix a);
 
 #endif

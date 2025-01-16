@@ -46,10 +46,41 @@ void test_submatrix_4x4()
     printf("test_submatrix_4x4 passed\n");
 }
 
+// Test function for determinant of a 2x2 matrix
+void test_determinant_2x2()
+{
+    t_matrix a = create_matrix(2);
+    a.matrix[0][0] = 1; a.matrix[0][1] = 5;
+    a.matrix[1][0] = -3; a.matrix[1][1] = 2;
+
+    double result = determinant(a);
+    assert(result == 17 && "test_determinant_2x2 failed");
+
+    free_matrix(a);
+    printf("test_determinant_2x2 passed\n");
+}
+
+// Test function for determinant of a 3x3 matrix
+void test_determinant_3x3()
+{
+    t_matrix a = create_matrix(3);
+    a.matrix[0][0] = 1; a.matrix[0][1] = 2; a.matrix[0][2] = 6;
+    a.matrix[1][0] = -5; a.matrix[1][1] = 8; a.matrix[1][2] = -4;
+    a.matrix[2][0] = 2; a.matrix[2][1] = 6; a.matrix[2][2] = 4;
+
+    double result = determinant(a);
+    assert(result == -196 && "test_determinant_3x3 failed");
+
+    free_matrix(a);
+    printf("test_determinant_3x3 passed\n");
+}
+
 int main()
 {
     test_submatrix_3x3();
     test_submatrix_4x4();
+    test_determinant_2x2();
+    test_determinant_3x3();
     printf("All tests passed!\n");
     return 0;
 }
