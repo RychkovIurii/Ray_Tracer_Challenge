@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:46:44 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/17 12:01:35 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:14:14 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,26 @@ t_matrix	rotation_z_matrix(double radian)
 	result.matrix[0][1] = -sin(radian);
 	result.matrix[1][0] = sin(radian);
 	result.matrix[1][1] = cos(radian);
+	result.matrix[2][2] = 1;
+	result.matrix[3][3] = 1;
+	return (result);
+}
+
+/* Shearing matrix. */
+
+t_matrix	shearing_matrix(double xy, double xz, double yx, double yz, double zx, double zy)
+{
+	t_matrix	result;
+
+	result = create_matrix(4);
+	result.matrix[0][0] = 1;
+	result.matrix[0][1] = xy;
+	result.matrix[0][2] = xz;
+	result.matrix[1][0] = yx;
+	result.matrix[1][1] = 1;
+	result.matrix[1][2] = yz;
+	result.matrix[2][0] = zx;
+	result.matrix[2][1] = zy;
 	result.matrix[2][2] = 1;
 	result.matrix[3][3] = 1;
 	return (result);

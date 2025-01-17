@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:54 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/17 12:03:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:15:00 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ t_matrix	scaling_matrix(double x, double y, double z);
 t_matrix	rotation_x_matrix(double radian);
 t_matrix	rotation_y_matrix(double radian);
 t_matrix	rotation_z_matrix(double radian);
+t_matrix	shearing_matrix(double xy, double xz, double yx, double yz, double zx, double zy);
 
 #endif
