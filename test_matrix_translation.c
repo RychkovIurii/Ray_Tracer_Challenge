@@ -71,13 +71,49 @@ void test_rotation_point_axe_x()
 	printf("test_rotation_point_axe_x passed\n");
 }
 
+// Test function rotation_y_matrix
+void test_rotation_point_axe_y()
+{
+	t_tuple p = point(0, 0, 1);
+	t_matrix half_quarter = rotation_y_matrix(M_PI / 4);
+	t_matrix full_quarter = rotation_y_matrix(M_PI / 2);
+	t_tuple expected_half_quarter = point(sqrt(2) / 2, 0, sqrt(2) / 2);
+	t_tuple expected_full_quarter = point(1, 0, 0);
+	t_tuple result_half_quarter = multiply_matrix_by_tuple(half_quarter, p);
+	t_tuple result_full_quarter = multiply_matrix_by_tuple(full_quarter, p);
+	assert(is_tuples_equal(result_half_quarter, expected_half_quarter) && "test_rotation_point_axe_y failed");
+	assert(is_tuples_equal(result_full_quarter, expected_full_quarter) && "test_rotation_point_axe_y failed");
+	free_matrix(half_quarter);
+	free_matrix(full_quarter);
+	printf("test_rotation_point_axe_y passed\n");
+}
+
+// Test function rotation_z_matrix
+void test_rotation_point_axe_z()
+{
+	t_tuple p = point(0, 1, 0);
+	t_matrix half_quarter = rotation_z_matrix(M_PI / 4);
+	t_matrix full_quarter = rotation_z_matrix(M_PI / 2);
+	t_tuple expected_half_quarter = point(-sqrt(2) / 2, sqrt(2) / 2, 0);
+	t_tuple expected_full_quarter = point(-1, 0, 0);
+	t_tuple result_half_quarter = multiply_matrix_by_tuple(half_quarter, p);
+	t_tuple result_full_quarter = multiply_matrix_by_tuple(full_quarter, p);
+	assert(is_tuples_equal(result_half_quarter, expected_half_quarter) && "test_rotation_point_axe_z failed");
+	assert(is_tuples_equal(result_full_quarter, expected_full_quarter) && "test_rotation_point_axe_z failed");
+	free_matrix(half_quarter);
+	free_matrix(full_quarter);
+	printf("test_rotation_point_axe_z passed\n");
+}
+
 int main()
 {
 	test_multiplying_by_translation_matrix();
 	test_multiplying_by_inverse_translation_matrix();
 	test_translation_does_not_affect_vectors();
-	test_rotation_point_axe_x();
 	test_scaling_by_negative_value();
+	test_rotation_point_axe_x();
+	test_rotation_point_axe_y();
+	test_rotation_point_axe_z();
 	printf("All tests passed!\n");
 	return 0;
 }
