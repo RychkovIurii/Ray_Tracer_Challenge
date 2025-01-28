@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/28 14:47:36 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:04:03 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ typedef struct	s_sphere
 	double		radius;
 }				t_sphere;
 
-typedef struct	s_intersect // array of intersections
+typedef struct	s_intersects // array of intersections
 
 {
 	int					count;
 	t_intersection		*array;
-}						t_intersect;
+}						t_intersects;
 
 typedef struct	s_intersection // t value and object
 {
@@ -83,12 +83,11 @@ t_tuple			get_ray_position(t_ray ray, double t)
 	Function reurns the number of intersections between the ray and the sphere
 	and the values of t at which the intersections occur.
 	Lowest value of t is a hit closest to the ray's origin.
-	Hit is a point where the ray intersects the sphere.
 	We need all values for reflections and refractions.
 */
-t_intersect	intersect_sphere(t_ray ray, t_sphere sphere)
+t_intersects	intersect_sphere(t_ray ray, t_sphere sphere)
 {
-	t_intersect result;
+	t_intersects result;
 	t_tuple		sphere_to_ray;
 	double		a;
 	double		b;
@@ -118,4 +117,31 @@ t_intersect	intersect_sphere(t_ray ray, t_sphere sphere)
 	result.array[0] = intersection1;
 	result.array[1] = intersection2;
 	return (result);
+}
+
+/*
+	Function returns the intersection of the ray with the object.
+	Lowest value of t is a hit closest to the ray's origin.
+*/
+
+t_intersection	*hit(t_intersects intersections)
+{
+	t_intersection	*hit;
+	int				i;
+
+	hit = NULL;
+	i = 0;
+
+	while (i < intersections.count)
+	{
+		if (intersections.array[i].t > 0)
+		{
+			if (hit == NULL)
+				hit = &intersections.array[i];
+			else if (intersections.array[i].t < hit->t)
+				hit = &intersections.array[i];
+		}
+		i++;
+	}
+	return (hit);
 }
