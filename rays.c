@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/28 17:39:27 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:09:58 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,19 @@ t_ray	transform_ray(t_ray ray, t_matrix matrix)
 #include <assert.h>
 #include <math.h>
 
-void test_intersection_no_hit() {
+void test_intersection_no_hit()
+
+{
 	t_ray ray = {{0, 0, 0, 1}, {1, 0, 0, 0}};
 	t_sphere sphere = {{0, 5, 0, 1}, 1};
 	t_intersects result = intersect_sphere(ray, sphere);
-
 
 	assert(result.count == 0);
 	assert(result.array == NULL);
 }
 
-void test_intersection_two_hits() {
+void test_intersection_two_hits()
+{
 	t_ray ray = {{0, 0, 0, 1}, {1, 0, 0, 0}};
 	t_sphere sphere = {{5, 0, 0, 1}, 1};
 	t_intersects result = intersect_sphere(ray, sphere);
@@ -144,14 +146,16 @@ void test_intersection_two_hits() {
 	free(result.array);
 }
 
-void test_hit_no_intersections() {
+void test_hit_no_intersections()
+{
 	t_intersects intersections = {0, NULL};
 	t_intersection *result = hit(intersections);
 
 	assert(result == NULL);
 }
 
-void test_hit_closest_intersection() {
+void test_hit_closest_intersection()
+{
 	t_intersection intersections_array[3] = {
 		{5, NULL},
 		{3, NULL},
@@ -164,11 +168,27 @@ void test_hit_closest_intersection() {
 	assert(result->t == 3);
 }
 
-int main() {
+void test_transform_ray()
+{
+	t_ray ray = create_ray(create_tuple(1, 2, 3, 1), create_tuple(0, 1, 0, 0));
+	t_matrix tran_matrix = translation_matrix(3, 4, 5);
+	t_ray transformed_ray = transform_ray(ray, tran_matrix);
+	assert(is_tuples_equal(transformed_ray.origin, create_tuple(4, 6, 8, 1)));
+	assert(is_tuples_equal(transformed_ray.direction, create_tuple(0, 1, 0, 0)));
+
+	t_matrix scal_matrix = scaling_matrix(2, 3, 4);
+	transformed_ray = transform_ray(ray, scal_matrix);
+	assert(is_tuples_equal(transformed_ray.origin, create_tuple(2, 6, 12, 1)));
+	assert(is_tuples_equal(transformed_ray.direction, create_tuple(0, 3, 0, 0)));
+}
+
+int main()
+{
 	test_intersection_no_hit();
 	test_intersection_two_hits();
 	test_hit_no_intersections();
 	test_hit_closest_intersection();
+	test_transform_ray();
 
 	printf("All tests passed!\n");
 	return 0;
