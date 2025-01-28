@@ -6,51 +6,13 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/28 15:04:03 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:39:27 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tuple.h"
-
-typedef enum e_object_type
-{
-	t_sphere,
-	t_plane,
-	t_cylinder,
-	t_cone,
-	t_triangle
-}				t_object_type;
-
-typedef struct	s_object
-{
-	int			type;
-	void		*data; // should think about this
-}				t_object;
-
-typedef struct	s_ray
-{
-	t_tuple		origin;		//point
-	t_tuple		direction;	//vector
-}				t_ray;
-
-typedef struct	s_sphere
-{
-	t_tuple		center;
-	double		radius;
-}				t_sphere;
-
-typedef struct	s_intersects // array of intersections
-
-{
-	int					count;
-	t_intersection		*array;
-}						t_intersects;
-
-typedef struct	s_intersection // t value and object
-{
-	double		t;
-	t_object	*object;
-}				t_intersection;
+#include "rays.h"
+#include "matrix.h"
 
 t_ray			create_ray(t_tuple origin, t_tuple direction)
 {
@@ -101,7 +63,7 @@ t_intersects	intersect_sphere(t_ray ray, t_sphere sphere)
 	b = 2 * dot(ray.direction, sphere_to_ray);
 	c = dot(sphere_to_ray, sphere_to_ray) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4 * a * c;
-
+/* 	printf("a: %f, b: %f, c: %f, discriminant: %f\n", a, b, c, discriminant); */
 	if (discriminant < 0)
 	{
 		result.count = 0;
@@ -145,3 +107,69 @@ t_intersection	*hit(t_intersects intersections)
 	}
 	return (hit);
 }
+
+t_ray	transform_ray(t_ray ray, t_matrix matrix)
+{
+	t_ray		result;
+
+	result.origin = multiply_matrix_by_tuple(matrix, ray.origin);
+	result.direction = multiply_matrix_by_tuple(matrix, ray.direction);
+	return (result);
+}
+
+/* #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <math.h>
+
+void test_intersection_no_hit() {
+	t_ray ray = {{0, 0, 0, 1}, {1, 0, 0, 0}};
+	t_sphere sphere = {{0, 5, 0, 1}, 1};
+	t_intersects result = intersect_sphere(ray, sphere);
+
+
+	assert(result.count == 0);
+	assert(result.array == NULL);
+}
+
+void test_intersection_two_hits() {
+	t_ray ray = {{0, 0, 0, 1}, {1, 0, 0, 0}};
+	t_sphere sphere = {{5, 0, 0, 1}, 1};
+	t_intersects result = intersect_sphere(ray, sphere);
+
+	assert(result.count == 2);
+	assert(result.array != NULL);
+	assert(fabs(result.array[0].t - 4.0) < 1e-6);
+	assert(fabs(result.array[1].t - 6.0) < 1e-6);
+	free(result.array);
+}
+
+void test_hit_no_intersections() {
+	t_intersects intersections = {0, NULL};
+	t_intersection *result = hit(intersections);
+
+	assert(result == NULL);
+}
+
+void test_hit_closest_intersection() {
+	t_intersection intersections_array[3] = {
+		{5, NULL},
+		{3, NULL},
+		{7, NULL}
+	};
+	t_intersects intersections = {3, intersections_array};
+	t_intersection *result = hit(intersections);
+
+	assert(result != NULL);
+	assert(result->t == 3);
+}
+
+int main() {
+	test_intersection_no_hit();
+	test_intersection_two_hits();
+	test_hit_no_intersections();
+	test_hit_closest_intersection();
+
+	printf("All tests passed!\n");
+	return 0;
+} */
