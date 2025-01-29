@@ -6,11 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 19:31:36 by irychkov          #+#    #+#             */
-/*   Updated: 2024/12/15 19:51:44 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:36:29 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
+#include "mini_rt.h"
 
 /* The distance represented by a vector is the length of the vector or the
 magnitude of the vector. */

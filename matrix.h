@@ -6,15 +6,14 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:54 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/17 12:15:00 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:52:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRIX_H
 # define MATRIX_H
 
-# include "tuple.h"
-# include <math.h>
+# include "mini_rt.h"
 
 typedef struct	s_matrix
 {

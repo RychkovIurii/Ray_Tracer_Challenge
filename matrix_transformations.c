@@ -6,11 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:46:44 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/17 12:14:14 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:38:18 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include "mini_rt.h"
 
 /* Translation matrix. */
 

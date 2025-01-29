@@ -6,13 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 12:34:01 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:37:55 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
-#include "rays.h"
-#include "matrix.h"
+#include "mini_rt.h"
 
 t_ray			create_ray(t_tuple origin, t_tuple direction)
 {
@@ -124,7 +122,7 @@ void set_transform(t_sphere *sphere, t_matrix transform)
 	sphere->transform = transform;
 }
 
-
+/* 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -246,3 +244,4 @@ int main()
 	printf("All tests passed!\n");
 	return 0;
 }
+ */

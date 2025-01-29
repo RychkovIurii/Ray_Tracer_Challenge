@@ -6,11 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:14:51 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 15:15:01 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:36:11 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
+#include "mini_rt.h"
 
 t_tuple	create_tuple(double x, double y, double z, double w)
 {

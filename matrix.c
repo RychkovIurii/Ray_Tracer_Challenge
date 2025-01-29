@@ -6,12 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 12:40:15 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:35:37 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
-#include "tuple.h"
+#include "mini_rt.h"
 
 /* Function to create a matrix of a given size. */
 

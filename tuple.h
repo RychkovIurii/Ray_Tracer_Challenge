@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:54:15 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 16:08:43 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:52:26 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 # define EPSILON	0.0001f
 
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
+# include "mini_rt.h"
 
 /* We set w to 1.0 to make it a point, and 0.0 to make it a vector. */
 

@@ -6,11 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 15:14:47 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:35:00 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include "mini_rt.h"
 
 /* Submatrix returns a copy of the given matrix with the given row and column removed. */
 

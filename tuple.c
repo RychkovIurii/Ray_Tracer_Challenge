@@ -6,11 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:07:36 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/16 16:08:23 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:36:23 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
+#include "mini_rt.h"
 
 int	is_tuples_equal(t_tuple a, t_tuple b)
 {

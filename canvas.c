@@ -6,12 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:23:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 18:23:17 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:35:09 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "canvas.h"
-#include "tuple.h"
+#include "mini_rt.h"
 
 /* This function creates a canvas with the given width and height. */
 

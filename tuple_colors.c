@@ -6,12 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:06:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/14 17:24:45 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:36:06 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tuple.h"
-#include "canvas.h"
+#include "mini_rt.h"
 
 t_tuple	create_color(double r, double g, double b)
 {
