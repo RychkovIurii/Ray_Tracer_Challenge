@@ -6,11 +6,12 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/28 17:19:16 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:11:28 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tuple.h"
+#include "matrix.h"
 
 /* typedef enum e_object_type
 {
@@ -37,6 +38,7 @@ typedef struct	s_sphere
 {
 	t_tuple		center;
 	double		radius;
+	t_matrix	transform;
 }				t_sphere;
 
 typedef struct	s_intersection // t value and object
