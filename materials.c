@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:13:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:48:10 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:26:53 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple e
 	return (add_tuple(add_tuple(ambient, diffuse), specular));
 }
 
-t_material	default_material()
+/* t_material	default_material()
 {
 	t_tuple color = create_tuple(1, 1, 1, 0);
 	return (material(color, 0.1, 0.9, 0.9, 200.0));
@@ -82,7 +82,7 @@ t_matrix identity_matrix(int size)
 	for (int i = 0; i < size; i++)
 		id.matrix[i][i] = 1;
 	return id;
-}
+} */
 
 /* 
 t_tuple	normal_at(t_sphere sphere, t_tuple world_point);

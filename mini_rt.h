@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:50:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 14:12:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:27:13 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,9 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+
+t_light		point_light(t_tuple position, t_tuple intensity);
+t_material	material(t_tuple color, double ambient, double diffuse, double specular, double shininess);
+t_tuple		lighting(t_material material, t_light light, t_tuple position, t_tuple eyeview, t_tuple normalv);
 
 #endif

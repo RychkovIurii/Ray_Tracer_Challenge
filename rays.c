@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 13:55:19 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:12:40 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	intersection2.object = &sphere;
 	result.count = 2;
 	result.array = (t_intersection *)malloc(sizeof(t_intersection) * 2);
+	//printf("intersection1.t: %f, intersection2.t: %f\n", intersection1.t, intersection2.t);
 	result.array[0] = intersection1;
 	result.array[1] = intersection2;
 	return (result);
@@ -104,12 +105,17 @@ t_intersection	*hit(t_intersects intersections)
 
 	while (i < intersections.count)
 	{
-		if (intersections.array[i].t > 0)
+		/* if (intersections.array[i].t > 0)
 		{
 			if (hit == NULL)
 				hit = &intersections.array[i];
 			else if (intersections.array[i].t < hit->t)
 				hit = &intersections.array[i];
+		} */
+		if (intersections.array[i].t > 0) //because we sort it in world_intersect we return the first positive t
+		{
+			hit = &intersections.array[i];
+			break;
 		}
 		i++;
 	}
