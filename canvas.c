@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:23:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:35:09 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:35:27 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,19 @@ t_canvas *canvas_to_ppm(t_canvas *canvas, char *filename)
 	}
 	fclose(file);
 	return (canvas);
+}
+
+/* This function frees the memory allocated for the canvas. */
+void	free_canvas(t_canvas *canvas)
+{
+	int i;
+
+	i = 0;
+	while (i < canvas->height)
+	{
+		free(canvas->pixels[i]);
+		i++;
+	}
+	free(canvas->pixels);
+	free(canvas);
 }

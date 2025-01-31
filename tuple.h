@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:54:15 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 12:52:26 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:05:54 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@
 # define EPSILON	0.0001f
 
 # include "mini_rt.h"
-
-/* We set w to 1.0 to make it a point, and 0.0 to make it a vector. */
-
-typedef struct	s_tuple
-{
-	double x;
-	double y;
-	double z;
-	double w;
-}	t_tuple;
 
 
 /* Functions to work with tuples. */
@@ -49,9 +39,12 @@ double	magnitude(t_tuple v);
 t_tuple	normalize(t_tuple v);
 double	dot(t_tuple a, t_tuple b);
 t_tuple	cross(t_tuple a, t_tuple b);
+t_tuple reflect(t_tuple in, t_tuple normal);
+
 
 /* Functions to work with colors. */
+
 t_tuple	create_color(double r, double g, double b);
-t_tuple	hadamard_product(t_tuple a, t_tuple b);
+t_tuple	multiply_color(t_tuple a, t_tuple b);
 
 #endif

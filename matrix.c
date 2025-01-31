@@ -6,14 +6,16 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:35:37 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:24:33 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-/* Function to create a matrix of a given size. */
-
+/* Function to create a matrix of a given size.
+Allocate memory for the matrix and initialize it with zeros.
+** @param size: The size of the matrix.
+** @return The matrix of the given size. */
 t_matrix	create_matrix(int size)
 {
 	t_matrix	matrix;
@@ -22,10 +24,22 @@ t_matrix	create_matrix(int size)
 
 	matrix.size = size;
 	matrix.matrix = (double **)malloc(sizeof(double *) * size);
+	if (!matrix.matrix)
+	{
+		// Handle error: memory allocation failed
+		printf("Memory allocation failed\n");
+		return (matrix);
+	}
 	i = 0;
 	while (i < size)
 	{
 		matrix.matrix[i] = (double *)malloc(sizeof(double) * size);
+		if (!matrix.matrix[i])
+		{
+			// Handle error: memory allocation failed
+			printf("Memory allocation failed\n");
+			return (matrix);
+		}
 		j = 0;
 		while (j < size)
 		{
@@ -194,6 +208,8 @@ void	free_matrix(t_matrix matrix)
 	int	i;
 
 	i = 0;
+	if (!matrix.matrix)
+		return;
 	while (i < matrix.size)
 	{
 		free(matrix.matrix[i]);
