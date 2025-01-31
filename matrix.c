@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:24:33 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:45:46 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_matrix	create_matrix(int size)
 }
 
 /* Check if two matrices are equal. */
-
 int	is_matrices_equal(t_matrix a, t_matrix b)
 {
 	int	i;
@@ -77,7 +76,6 @@ int	is_matrices_equal(t_matrix a, t_matrix b)
 }
 
 /* Multiply two matrices. */
-
 t_matrix	multiply_matrices(t_matrix a, t_matrix b)
 {
 	t_matrix	result;
@@ -142,7 +140,6 @@ t_tuple	multiply_matrix_by_tuple(t_matrix a, t_tuple b)
 } */
 
 /* Multiply a matrix by the identity matrix. */
-
 t_matrix	multiply_matrix_by_identity_matrix(t_matrix a)
 {
 	t_matrix	result;
@@ -179,7 +176,6 @@ t_tuple	multiply_identity_matrix_by_tuple(t_tuple a)
 }
 
 /* Transpose a matrix. */
-
 t_matrix	transpose_matrix(t_matrix a)
 {
 	t_matrix	result;
@@ -202,7 +198,6 @@ t_matrix	transpose_matrix(t_matrix a)
 }
 
 /* Free the memory allocated for a matrix. */
-
 void	free_matrix(t_matrix matrix)
 {
 	int	i;

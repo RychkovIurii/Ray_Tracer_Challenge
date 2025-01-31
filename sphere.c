@@ -6,16 +6,17 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:01:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 16:53:17 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:40:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "mini_rt.h"
 
 /*
-** Sphere is a struct that holds the center of the sphere, its radius, and the
-** transformation matrix.
-** @return The surface normal vector.
+** Function that takes a point and a sphere and returns the normal vector of the sphere at that point.
+** @param sphere: The sphere.
+** @param world_point: The point in the world.
+** @return The normal vector of the sphere at that point.
 */
 t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
 {
@@ -32,28 +33,6 @@ t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
 	world_normal.w = 0;
 	surface_normal = normalize(world_normal);
 	return (surface_normal);
-}
-
-/*
-** Reflect function calculates the reflection vector of the incoming vector
-** in relation to the normal vector of the surface it hits.
-** The formula is R = V - 2 * N * dot(V, N)
-** where V is the incoming vector, N is the normal vector of the surface
-** and R is the reflection vector.
-** @return The reflection vector.
-*/
-t_tuple reflect(t_tuple in, t_tuple normal)
-{
-	t_tuple result;
-	t_tuple n;
-	t_tuple n2;
-	t_tuple n3;
-
-	n = multiply_tuple_scalar(normal, 2);
-	n2 = multiply_tuple_scalar(n, dot(in, normal));
-	n3 = substract_tuple(in, n2);
-	result = n3;
-	return (result);
 }
 
 /* 

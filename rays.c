@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:37:55 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:55:19 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	Function returns the intersection of the ray with the object.
 	Lowest value of t is a hit closest to the ray's origin.
 */
-
 t_intersection	*hit(t_intersects intersections)
 {
 	t_intersection	*hit;

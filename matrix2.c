@@ -6,14 +6,13 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:23:13 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:45:59 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 /* Submatrix returns a copy of the given matrix with the given row and column removed. */
-
 t_matrix	submatrix(t_matrix a, int row, int column)
 {
 	t_matrix	sub;
@@ -58,7 +57,6 @@ t_matrix	submatrix(t_matrix a, int row, int column)
 }
 
 /* Calculate the minor of matrix. */
-
 double	minor_matrix(t_matrix a, int row, int column)
 {
 	t_matrix	sub;
@@ -72,7 +70,6 @@ double	minor_matrix(t_matrix a, int row, int column)
 
 
 /* Calculate the cofactor of a 3x3 matrix. */
-
 double	cofactor_matrix(t_matrix a, int row, int column)
 {
 	double	minor;
@@ -87,7 +84,6 @@ double	cofactor_matrix(t_matrix a, int row, int column)
 }
 
 /* Calculate the determinant of a matrix. */
-
 double	determinant(t_matrix a)
 {
 	double	det;
@@ -106,7 +102,6 @@ double	determinant(t_matrix a)
 }
 
 /* Is matrix invertible */
-
 int		is_invertible(t_matrix a)
 {
 	if (determinant(a) == 0)
@@ -115,7 +110,6 @@ int		is_invertible(t_matrix a)
 }
 
 /* Inverse matrix. */
-
 t_matrix	inverse_matrix(t_matrix a)
 {
 	t_matrix	inverse;

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 11:28:14 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:44:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 
 
 /* Function to work with rays. */
+
 t_ray			create_ray(t_tuple origin, t_tuple direction);
 t_tuple			get_ray_position(t_ray ray, double t);
 t_ray	transform_ray(t_ray ray, t_matrix matrix);

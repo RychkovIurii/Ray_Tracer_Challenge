@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:10:54 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 11:26:24 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:44:41 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mini_rt.h"
 
 /* Functions to work with matrices. */
+
 t_matrix	create_matrix(int size);
 int			is_matrices_equal(t_matrix a, t_matrix b);
 t_matrix	multiply_matrices(t_matrix a, t_matrix b);

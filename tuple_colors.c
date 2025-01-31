@@ -6,12 +6,15 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:06:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:36:06 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:58:19 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+/* Function to create a color tuple.
+@param r, g, b: color values.
+@returns a tuple that represents a color. */
 t_tuple	create_color(double r, double g, double b)
 {
 	t_tuple	tuple;
@@ -24,9 +27,10 @@ t_tuple	create_color(double r, double g, double b)
 }
 
 /* Hadamard product is a term for element-wise multiplication of two tuples.
-We can call it a "multiply_color" as well. */
-
-t_tuple	hadamard_product(t_tuple a, t_tuple b)
+We can call it a "multiply_color" as well.
+@param a, b: tuples to multiply.
+@returns a new tuple that is the element-wise multiplication of the input tuples. */
+t_tuple	multiply_color(t_tuple a, t_tuple b)
 {
 	t_tuple	tuple;
 

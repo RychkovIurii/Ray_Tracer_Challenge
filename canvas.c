@@ -6,14 +6,13 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:23:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 14:35:27 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:45:20 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 /* This function creates a canvas with the given width and height. */
-
 t_canvas	*create_canvas(int width, int height)
 {
 	t_canvas	*canvas;
@@ -40,7 +39,6 @@ t_canvas	*create_canvas(int width, int height)
 }
 
 /* This function writes a color to the pixel at the given coordinates. */
-
 void write_pixel(t_canvas *canvas, int x, int y, t_tuple color)
 {
 	if (x >= 0 && x < canvas->width && y >= 0 && y < canvas->height)
@@ -50,7 +48,6 @@ void write_pixel(t_canvas *canvas, int x, int y, t_tuple color)
 }
 
 /* This function returns the color of the pixel at the given coordinates. */
-
 t_tuple	pixel_at(t_canvas *canvas, int x, int y)
 {
 	if (x >= 0 && x < canvas->width && y >= 0 && y < canvas->height)
@@ -61,7 +58,6 @@ t_tuple	pixel_at(t_canvas *canvas, int x, int y)
 }
 
 /* This function clamps a value to a given range. */
-
 int	round_value(int value, int min, int max)
 {
 	if (value < min)
@@ -72,7 +68,6 @@ int	round_value(int value, int min, int max)
 }
 
 /* This function writes a color to a file in PPM format. */
-
 int	write_color(FILE *file, t_tuple color)
 {
 	int r = round_value((int)(color.x * 255), 0, 255);
@@ -82,7 +77,6 @@ int	write_color(FILE *file, t_tuple color)
 }
 
 /* This function writes the canvas to a file in PPM format. */
-
 t_canvas *canvas_to_ppm(t_canvas *canvas, char *filename)
 {
 	FILE		*file;
