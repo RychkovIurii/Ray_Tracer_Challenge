@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:40:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:50:48 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:34:31 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_matrix identity_matrix(int size) {
 	return (m);
 }
 
+t_tuple	normal_at(t_sphere sphere, t_tuple world_point);
 
 int main()
 {
