@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 14:09:27 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:58:31 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,28 @@ typedef struct	s_sphere
 ** @param t: double The t value of the intersection.
 ** @param object: t_sphere The object of the intersection.
 */
-typedef struct	s_intersection // t value and object
+/* typedef struct	s_intersection // t value and object
 {
 	double		t;
 	t_sphere	*object;
+}				t_intersection; */
+
+/* Structure for intersections.
+** @param t: double The t value of the intersection.
+** @param *object: t_sphere The object of the intersection.
+** @param point: t_tuple The point of the intersection.
+** @param eyev: t_tuple The eye vector.
+** @param normalv: t_tuple The normal vector.
+** @param inside: int The inside value.
+*/
+typedef struct s_intersection
+{
+	double		t;
+	t_sphere	*object;
+	t_tuple		point;
+	t_tuple		eyev; // vector
+	t_tuple		normalv; // vector
+	int			inside;
 }				t_intersection;
 
 /* Structure for intersections.
