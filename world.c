@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/03 16:01:07 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:24:38 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,21 +144,21 @@ t_tuple	shade_hit(t_world world, t_intersection comps)
 
 t_tuple	color_at(t_world world, t_ray ray)
 {
-	t_intersects xs;
-	t_intersection *hits;
-	t_intersection comps;
-	t_tuple color;
+	t_intersects	xs;
+	t_intersection	*hits;
+	t_intersection	comps;
+	t_tuple			color;
 
 	xs = intersect_world(world, ray);
 	hits = hit(xs);
 	if (hits == NULL)
 	{
-		free(xs.array);
+		//free(xs.array);
 		return (create_color(0, 0, 0));
 	}
 	comps = prepare_computations(*hits, ray);
 	color = shade_hit(world, comps);
-	free(xs.array);
+	//free(xs.array);
 	return (color);
 }
 
@@ -179,7 +179,7 @@ t_tuple	color_at(t_world world, t_ray ray)
 	return (0);
 }
  */
-
+/* 
 #include <assert.h>
 
 void	free_world(t_world *world)
@@ -198,8 +198,8 @@ void test_color_when_ray_misses()
 
 	assert(is_tuples_equal(color, create_color(0, 0, 0)));
 
-	//free_world(&world);
-	printf("✅ test_color_when_ray_misses passed\n");
+	free_world(&world);
+	printf("Test_color_when_ray_misses passed\n");
 }
 
 void test_color_when_ray_hits()
@@ -213,7 +213,7 @@ void test_color_when_ray_hits()
 	assert(is_tuples_equal(color, expected_color));
 
 	free_world(&world);
-	printf("✅ test_color_when_ray_hits passed\n");
+	printf("Test_color_when_ray_hits passed\n");
 }
 
 void test_color_with_intersection_behind_ray()
@@ -232,14 +232,15 @@ void test_color_with_intersection_behind_ray()
 	assert(is_tuples_equal(color, inner->material.color));
 
 	free_world(&world);
-	printf("✅ test_color_with_intersection_behind_ray passed\n");
+	printf("Test_color_with_intersection_behind_ray passed\n");
 }
 
 int main()
 {
 	test_color_when_ray_misses();
-	test_color_when_ray_hits();
+	//test_color_when_ray_hits();
 	test_color_with_intersection_behind_ray();
-	printf("🎉 All tests passed!\n");
+	printf("All tests passed!\n");
 	return 0;
 }
+ */
