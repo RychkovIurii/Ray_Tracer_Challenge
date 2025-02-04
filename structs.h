@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 08:43:11 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:50:19 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,21 @@ typedef struct	s_tuple
 	double	w;
 }	t_tuple;
 
-/* Structure for matrices.
-** @param size: int The size of the matrix.
-** @param matrix: double** The matrix.
+/* Structure for 2x2 matrices.
+** @param t_matrix2x2: double[2][2] The 2x2 matrix.
 */
-typedef struct	s_matrix
-{
-	int		size;
-	double	**matrix;
-}			t_matrix;
+typedef double	t_matrix2x2[2][2];
+
+/* Structure for 3x3 matrices.
+** @param t_matrix3x3: double[3][3] The 3x3 matrix.
+*/
+typedef double	t_matrix3x3[3][3];
+
+
+/* Structure for 4x4 matrices.
+** @param t_matrix4x4: double[4][4] The 4x4 matrix.
+*/
+typedef double	t_matrix4x4[4][4];
 
 /* Structure for rays.
 ** @param origin: t_tuple (Point)The origin of the ray.
@@ -75,7 +81,7 @@ typedef struct	s_sphere
 {
 	t_tuple		center;
 	double		radius;
-	t_matrix	transform;
+	t_matrix4x4	*transform;
 	t_material	material;
 }				t_sphere;
 
@@ -151,7 +157,7 @@ typedef struct s_camera
 	int			hsize;
 	int			vsize;
 	double		field_of_view;
-	t_matrix	transform;
+	t_matrix4x4	transform;
 	double		pixel_size;
 	double		half_width;
 	double		half_height;

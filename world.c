@@ -6,18 +6,17 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 08:45:41 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:43:29 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_matrix identity_matrix(int size)
+void set_identity_matrix(t_matrix4x4 *result, int size)
 {
-	t_matrix id = create_matrix(size);
+	ft_bzero(result, sizeof(t_matrix4x4));
 	for (int i = 0; i < size; i++)
-		id.matrix[i][i] = 1;
-	return id;
+		*result[i][i] = 1;
 }
 
 t_world default_world()
@@ -32,13 +31,13 @@ t_world default_world()
 
 	// Initialize the properties of sphere1
 	sphere1->material = material(create_color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
-	sphere1->transform = identity_matrix(4);
+	set_identity_matrix(&sphere1->transform, 4);
 	sphere1->center = point(0, 0, 0);
 	sphere1->radius = 1;
 
 	// Initialize the properties of sphere2
 	sphere2->material = material(create_color(1, 0, 0), 0.1, 0.7, 0.2, 200.0);
-	sphere2->transform = scaling_matrix(0.5, 0.5, 0.5);
+	sphere2->transform = *scaling_matrix(0.5, 0.5, 0.5);
 	sphere2->center = point(0, 0, 0);
 	sphere2->radius = 0.5;
 
@@ -62,6 +61,7 @@ void	bubble_sort_intersections(t_intersection *array, int count)
 
 	i = 0;
 	j = 0;
+	ft_bzero(&temp, sizeof(t_intersection));
 	while (i < count)
 	{
 		j = 0;
@@ -91,6 +91,10 @@ t_intersects intersect_world(t_world world, t_ray ray)
 	int count = 0;
 	int total_intersections = 0;
 
+	ft_bzero(&xs, sizeof(t_intersects));
+	ft_bzero(&temp, sizeof(t_intersects));
+	ft_bzero(&temp_array, sizeof(t_intersection *));
+	ft_bzero(&xs_array, sizeof(t_intersection *));
 	// Allocate memory for intersections dynamically (in case there are more than 2 intersections)
 	xs_array = NULL;
 
@@ -143,6 +147,10 @@ t_tuple	color_at(t_world world, t_ray ray)
 	t_intersection	comps;
 	t_tuple			color;
 
+	ft_bzero(&comps, sizeof(t_intersection));
+	ft_bzero(&color, sizeof(t_tuple));
+	ft_bzero(&xs, sizeof(t_intersects));
+	ft_bzero(&hits, sizeof(t_intersection));
 	xs = intersect_world(world, ray);
 	hits = hit(xs);
 	if (hits == NULL)

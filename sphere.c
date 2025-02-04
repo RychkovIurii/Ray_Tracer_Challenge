@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:01:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 12:40:49 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:40:04 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@
 */
 t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
 {
-	t_tuple surface_normal;
-	t_tuple world_normal;
-	t_tuple object_point;
-	t_tuple object_normal;
-	t_matrix inverse_transform;
+	t_tuple		surface_normal;
+	t_tuple		world_normal;
+	t_tuple		object_point;
+	t_tuple		object_normal;
+	t_matrix4x4	transpose;
+	t_matrix4x4	inverse_transform;
 
-	inverse_transform = inverse_matrix(sphere.transform);
+	inverse_matrix(&inverse_transform, &sphere.transform);
 	object_point = multiply_matrix_by_tuple(inverse_transform, world_point);
 	object_normal = substract_tuple(object_point, point(0, 0, 0));
-	world_normal = multiply_matrix_by_tuple(transpose_matrix(inverse_transform), object_normal);
+	transpose_matrix(&transpose, &inverse_transform);
+	world_normal = multiply_matrix_by_tuple(transpose, object_normal);
 	world_normal.w = 0;
 	surface_normal = normalize(world_normal);
 	return (surface_normal);

@@ -6,31 +6,26 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:45:59 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:48:33 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 /* Submatrix returns a copy of the given matrix with the given row and column removed. */
-t_matrix	submatrix(t_matrix a, int row, int column)
+t_matrix3x3	*submatrix3x3(t_matrix3x3 *a, int row, int column)
 {
-	t_matrix	sub;
-	int		i;
-	int		j;
-	int		x;
-	int		y;
+	t_matrix3x3	sub;
+	int			i;
+	int			j;
+	int			x;
+	int			y;
 
-	if (a.size < 2)
-	{
-		// Handle error: matrix is too small
-		return (a);
-	}
-	sub = create_matrix(a.size - 1);
+	ft_bzero(&sub, sizeof(t_matrix3x3));
 	x = 0;
 	i = 0;
 	x = 0;
-	while (i < a.size)
+	while (i < 3)
 	{
 		if (i == row)
 		{
@@ -39,14 +34,14 @@ t_matrix	submatrix(t_matrix a, int row, int column)
 		}
 		j = 0;
 		y = 0;
-		while (j < a.size)
+		while (j < 3)
 		{
 			if (j == column)
 			{
 				j++;
 				continue;
 			}
-			sub.matrix[x][y] = a.matrix[i][j];
+			sub[i][j] = *a[i][j];
 			y++;
 			j++;
 		}
@@ -56,26 +51,80 @@ t_matrix	submatrix(t_matrix a, int row, int column)
 	return (sub);
 }
 
-/* Calculate the minor of matrix. */
-double	minor_matrix(t_matrix a, int row, int column)
+t_matrix4x4 *submatrix4x4(t_matrix4x4 *a, int row, int column)
 {
-	t_matrix	sub;
-	double	det;
+	t_matrix4x4	sub;
+	int			i;
+	int			j;
+	int			x;
+	int			y;
 
-	sub = submatrix(a, row, column);
-	det = determinant(sub);
-	free_matrix(sub);
-	return (det);
+	ft_bzero(&sub, sizeof(t_matrix4x4));
+	x = 0;
+	i = 0;
+	x = 0;
+	while (i < 4)
+	{
+		if (i == row)
+		{
+			i++;
+			continue;
+		}
+		j = 0;
+		y = 0;
+		while (j < 4)
+		{
+			if (j == column)
+			{
+				j++;
+				continue;
+			}
+			sub[i][j] = *a[i][j];
+			y++;
+			j++;
+		}
+		x++;
+		i++;
+	}
+	return (sub);
+}
+
+
+/* Calculate the minor of matrix 3x3. */
+double	minor_matrix3x3(t_matrix3x3 a, int row, int column)
+{
+	double	minor;
+	t_matrix2x2	*sub;
+	int			i;
+	int			j;
+
+	ft_bzero(&sub, sizeof(t_matrix2x2));
+	sub = submatrix2x2(a, row, column);
+	minor = determinant2x2(sub);
+	return (minor);
+}
+
+double minor_matrix4x4(t_matrix4x4 a, int row, int column)
+{
+	double	minor;
+	t_matrix3x3	*sub;
+	int			i;
+	int			j;
+
+	ft_bzero(&sub, sizeof(t_matrix3x3));
+	sub = submatrix3x3(a, row, column);
+	minor = determinant3x3(sub);
+	return (minor);
 }
 
 
 /* Calculate the cofactor of a 3x3 matrix. */
-double	cofactor_matrix(t_matrix a, int row, int column)
+double	cofactor_matrix3x3(t_matrix3x3 a, int row, int column)
 {
 	double	minor;
 	double	cofactor;
 
-	minor = minor_matrix(a, row, column);
+	minor = minor_matrix3x3(a, row, column);
 	if ((row + column) % 2 == 0)
 		cofactor = minor;
 	else
@@ -83,63 +132,92 @@ double	cofactor_matrix(t_matrix a, int row, int column)
 	return (cofactor);
 }
 
-/* Calculate the determinant of a matrix. */
-double	determinant(t_matrix a)
+/* Calculate the cofactor of a 4x4 matrix. */
+double	cofactor_matrix4x4(t_matrix4x4 a, int row, int column)
+{
+	double	minor;
+	double	cofactor;
+
+	minor = minor_matrix4x4(a, row, column);
+	if ((row + column) % 2 == 0)
+		cofactor = minor;
+	else
+		cofactor = -minor;
+	return (cofactor);
+}
+
+/* Calculate the determinant of a matrix2x2. */
+double	determinant2x2(t_matrix2x2 *a)
+{
+	double	det;
+
+	det = (*a[0][0]) * (*a[1][1]) - (*a[0][1]) * (*a[1][0]);
+	return (det);
+}
+
+/* Calculate the determinant of a matrix3x3. */
+double	determinant3x3(t_matrix3x3 *a)
 {
 	double	det;
 	int		i;
 
-	i = 0;
 	det = 0;
-	if (a.size == 2)
-		return (a.matrix[0][0] * a.matrix[1][1] - a.matrix[0][1] * a.matrix[1][0]);
-	while (i < a.size)
+	i = 0;
+	while (i < 3)
 	{
-		det += a.matrix[0][i] * cofactor_matrix(a, 0, i);
+		det += (*a[0][i]) * cofactor_matrix3x3(a, 0, i);
+		i++;
+	}
+	return (det);
+}	
+
+/* Calculate the determinant of a matrix4x4. */
+double	determinant4x4(t_matrix4x4 *a)
+{
+	double	det;
+	int		i;
+	int		j;
+
+	det = 0;
+	i = 0;
+	while (i < 4)
+	{
+		det += (*a[0][i]) * cofactor_matrix4x4(a, 0, i);
 		i++;
 	}
 	return (det);
 }
 
 /* Is matrix invertible */
-int		is_invertible(t_matrix a)
+/* int		is_invertible(t_matrix4x4 a)
 {
 	if (determinant(a) == 0)
 		return (0);
 	return (1);
-}
+} */
 
 /* Inverse matrix. */
-t_matrix	inverse_matrix(t_matrix a)
+void	inverse_matrix(t_matrix4x4 *out, t_matrix4x4 *in)
 {
-	t_matrix	inverse;
 	double		det;
 	int			i;
 	int			j;
 
-	if (a.matrix == NULL)
-	{
-		printf("Error: Received NULL matrix\n");
-		exit(1); // Handle error, potentially return an invalid matrix
-	}
-	det = determinant(a);
+	det = determinant4x4(*in);
 	if (det == 0)
 	{
-		// Handle error: matrix is not invertible
-		printf("Matrix is not invertible\n");
-		return (a);
+		ft_bzero(out, sizeof(t_matrix4x4));
+		return ;
 	}
-	inverse = create_matrix(a.size);
 	i = 0;
-	while (i < a.size)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < a.size)
+		while (j < 4)
 		{
-			inverse.matrix[j][i] = cofactor_matrix(a, i, j) / det;
+			(*out)[j][i] = cofactor_matrix4x4(*in, i, j) / det;
 			j++;
 		}
 		i++;
 	}
-	return (inverse);
 }

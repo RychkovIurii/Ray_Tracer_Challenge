@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:40:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 13:34:31 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:38:00 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,6 @@ and draws the picture to a canvas. Any ray that hits the sphere should result in
 a colored pixel (red, for example), and any miss should be drawn in black.
 The result will be a silhouette of the sphere—not three-dimensional, but
 definitely round! */
-
-t_matrix identity_matrix(int size) {
-	t_matrix m;
-
-	m.size = size;
-	m.matrix = (double **)malloc(size * sizeof(double *));
-	for (int i = 0; i < size; i++) {
-		m.matrix[i] = (double *)malloc(size * sizeof(double));
-		for (int j = 0; j < size; j++) {
-			if (i == j)
-				m.matrix[i][j] = 1;
-			else
-				m.matrix[i][j] = 0;
-		}
-	}
-	return (m);
-}
 
 t_tuple	normal_at(t_sphere sphere, t_tuple world_point);
 

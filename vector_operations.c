@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 19:31:36 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 12:13:04 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:56:58 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ magnitude of the vector.
 @returns the square root of the sum of the squares of the vector's components. */
 double	magnitude(t_tuple v)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+	double sum = v.x * v.x + v.y * v.y + v.z * v.z;
+    if (sum < 0) // может быть из-за неинициализированных значений
+        return 0;
+    return sqrt(sum);
 }
 
 /* Normalizing a vector is the process of turning a vector into a unit vector.
@@ -30,7 +33,10 @@ t_tuple	normalize(t_tuple v)
 	double mag;
 	t_tuple norm;
 
+	ft_bzero(&norm, sizeof(t_tuple));
 	mag = magnitude(v);
+	if (mag == 0)
+		return (v);
 	norm.x = v.x / mag;
 	norm.y = v.y / mag;
 	norm.z = v.z / mag;

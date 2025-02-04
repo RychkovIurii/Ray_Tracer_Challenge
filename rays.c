@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 18:12:40 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:27:42 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,14 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	t_intersection	intersection1;
 	t_intersection	intersection2;
 	t_ray		transformed_ray;
+	t_matrix4x4	inverse;
 
-	transformed_ray = transform_ray(ray, inverse_matrix(sphere.transform));
+	ft_bzero(&result, sizeof(t_intersects));
+	ft_bzero(&intersection1, sizeof(t_intersection));
+	ft_bzero(&intersection2, sizeof(t_intersection));
+	ft_bzero(&transformed_ray, sizeof(t_ray));
+	inverse_matrix(&inverse, &sphere.transform);
+	transformed_ray = transform_ray(ray, inverse);
 	sphere_to_ray = substract_tuple(transformed_ray.origin, sphere.center);
 	a = dot(transformed_ray.direction, transformed_ray.direction);
 	b = 2 * dot(transformed_ray.direction, sphere_to_ray);
@@ -100,7 +106,7 @@ t_intersection	*hit(t_intersects intersections)
 	t_intersection	*hit;
 	int				i;
 
-	hit = NULL;
+	ft_bzero(&hit, sizeof(t_intersection *));
 	i = 0;
 
 	while (i < intersections.count)
@@ -122,7 +128,7 @@ t_intersection	*hit(t_intersects intersections)
 	return (hit);
 }
 
-void set_transform(t_sphere *sphere, t_matrix transform)
+void set_transform(t_sphere *sphere, t_matrix4x4 transform)
 {
 	sphere->transform = transform;
 }
