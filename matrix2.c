@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 16:48:33 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:27:32 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ double	minor_matrix3x3(t_matrix3x3 a, int row, int column)
 {
 	double	minor;
 	t_matrix2x2	*sub;
-	int			i;
-	int			j;
 
 	ft_bzero(&sub, sizeof(t_matrix2x2));
 	sub = submatrix2x2(a, row, column);
@@ -108,8 +106,7 @@ double minor_matrix4x4(t_matrix4x4 a, int row, int column)
 {
 	double	minor;
 	t_matrix3x3	*sub;
-	int			i;
-	int			j;
+
 
 	ft_bzero(&sub, sizeof(t_matrix3x3));
 	sub = submatrix3x3(a, row, column);
