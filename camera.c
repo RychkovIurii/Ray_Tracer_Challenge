@@ -6,22 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:09:13 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/03 20:32:20 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:45:00 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-typedef struct camera
-{
-	int			hsize;
-	int			vsize;
-	double		field_of_view;
-	t_matrix	transform;
-	double		pixel_size;
-	double		half_width;
-	double		half_height;
-}				t_camera;
 
 t_camera create_camera(int hsize, int vsize, double field_of_view)
 {
@@ -64,6 +53,21 @@ t_ray ray_for_pixel(t_camera camera, int px, int py)
 	t_tuple direction = normalize(substract_tuple(pixel, origin));
 
 	return create_ray(origin, direction);
+}
+
+t_canvas *render(t_camera camera, t_world world)
+{
+	t_canvas *image = create_canvas(camera.hsize, camera.vsize);
+	for (int y = 0; y < camera.vsize; y++)
+	{
+		for (int x = 0; x < camera.hsize; x++)
+		{
+			t_ray ray = ray_for_pixel(camera, x, y);
+			t_tuple color = color_at(world, ray);
+			write_pixel(image, x, y, color);
+		}
+	}
+	return (image);
 }
 
 /* 

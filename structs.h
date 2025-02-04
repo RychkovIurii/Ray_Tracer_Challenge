@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/03 15:58:31 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:43:11 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,35 @@ typedef struct	s_light
 	t_tuple	position; // point
 	t_tuple	intensity; // color
 }			t_light;
+
+/* Structure for world.
+** @param light: t_light The light of the world.
+** @param sphere: t_sphere** The array of spheres in the world.
+*/
+typedef struct s_world
+{
+	t_light		light;
+	t_sphere	**sphere;
+}				t_world;
+
+/* Structure for camera.
+** @param hsize: int The horizontal size of the camera.
+** @param vsize: int The vertical size of the camera.
+** @param field_of_view: double The field of view of the camera.
+** @param transform: t_matrix The transformation matrix of the camera.
+** @param pixel_size: double The pixel size of the camera.
+** @param half_width: double The half width of the camera.
+** @param half_height: double The half height of the camera.
+*/
+typedef struct s_camera
+{
+	int			hsize;
+	int			vsize;
+	double		field_of_view;
+	t_matrix	transform;
+	double		pixel_size;
+	double		half_width;
+	double		half_height;
+}				t_camera;
 
 #endif

@@ -6,17 +6,11 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/03 19:24:38 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 08:45:41 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-typedef struct world
-{
-	t_light		light;
-	t_sphere	**sphere;
-}				t_world;
 
 t_matrix identity_matrix(int size)
 {
