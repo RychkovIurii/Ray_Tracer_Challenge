@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:40:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 13:34:31 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:20:16 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_matrix identity_matrix(int size) {
 	t_matrix m;
 
 	m.size = size;
-	m.matrix = (double **)malloc(size * sizeof(double *));
+	m.matrix = (double **)calloc(size, sizeof(double *));
 	for (int i = 0; i < size; i++) {
-		m.matrix[i] = (double *)malloc(size * sizeof(double));
+		m.matrix[i] = (double *)calloc(size, sizeof(double));
 		for (int j = 0; j < size; j++) {
 			if (i == j)
 				m.matrix[i][j] = 1;

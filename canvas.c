@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 15:23:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:45:20 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:22:14 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ t_canvas	*create_canvas(int width, int height)
 	int			i;
 	int			j;
 
-	canvas = (t_canvas *)malloc(sizeof(t_canvas));
+	canvas = (t_canvas *)calloc(1, sizeof(t_canvas));
 	canvas->width = width;
 	canvas->height = height;
-	canvas->pixels = (t_tuple **)malloc(sizeof(t_tuple *) * height);
+	canvas->pixels = (t_tuple **)calloc(height, sizeof(t_tuple *));
 	i = 0;
 	while (i < height)
 	{
-		canvas->pixels[i] = (t_tuple *)malloc(sizeof(t_tuple) * width);
+		canvas->pixels[i] = (t_tuple *)calloc(width, sizeof(t_tuple));
 		j = 0;
 		while (j < width)
 		{

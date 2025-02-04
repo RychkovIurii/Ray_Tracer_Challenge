@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 08:45:41 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:27:20 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_world default_world()
 	t_sphere *sphere2;
 
 	// Allocate memory for spheres
-	sphere1 = (t_sphere *)malloc(sizeof(t_sphere));
-	sphere2 = (t_sphere *)malloc(sizeof(t_sphere));
+	sphere1 = (t_sphere *)calloc(1, sizeof(t_sphere));
+	sphere2 = (t_sphere *)calloc(1, sizeof(t_sphere));
 
 	// Initialize the properties of sphere1
 	sphere1->material = material(create_color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0);
@@ -46,7 +46,7 @@ t_world default_world()
 	world.light = point_light(point(-10, 10, -10), create_color(1, 1, 1));
 
 	// Allocate memory for the sphere array in the world
-	world.sphere = (t_sphere **)malloc(sizeof(t_sphere *) * 2);
+	world.sphere = (t_sphere **)calloc(2, sizeof(t_sphere *));
 	world.sphere[0] = sphere1;
 	world.sphere[1] = sphere2;
 
@@ -95,7 +95,10 @@ t_intersects intersect_world(t_world world, t_ray ray)
 	xs_array = NULL;
 
 	// Intersect all spheres in the world
-	for (int i = 0; i < 2; i++) {
+	int i = 0;
+	while(world.sphere[i] != NULL)
+	{
+		printf("Intersecting sphere %d\n", i);
 		temp = intersect_sphere(*world.sphere[i], ray);
 		temp_array = temp.array;
 		
@@ -109,6 +112,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 			}
 			total_intersections += temp.count;
 		}
+		i++;
 	}
 	//printf("Before sorting:\n");
 	/* for (int i = 0; i < total_intersections; i++) {
@@ -152,7 +156,7 @@ t_tuple	color_at(t_world world, t_ray ray)
 	}
 	comps = prepare_computations(*hits, ray);
 	color = shade_hit(world, comps);
-	//free(xs.array);
+	free(xs.array);
 	return (color);
 }
 

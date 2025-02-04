@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:45:46 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:40:42 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,38 @@ Allocate memory for the matrix and initialize it with zeros.
 ** @return The matrix of the given size. */
 t_matrix	create_matrix(int size)
 {
-	t_matrix	matrix;
+	t_matrix	*matrix;
 	int			i;
 	int			j;
 
-	matrix.size = size;
-	matrix.matrix = (double **)malloc(sizeof(double *) * size);
-	if (!matrix.matrix)
+	matrix = (t_matrix *)calloc(1, sizeof(t_matrix));
+	matrix->size = size;
+	matrix->matrix = (double **)calloc(size, sizeof(double *));
+	if (!matrix->matrix)
 	{
 		// Handle error: memory allocation failed
 		printf("Memory allocation failed\n");
-		return (matrix);
+		return (*matrix);
 	}
 	i = 0;
 	while (i < size)
 	{
-		matrix.matrix[i] = (double *)malloc(sizeof(double) * size);
-		if (!matrix.matrix[i])
+		matrix->matrix[i] = (double *)calloc(size, sizeof(double));
+		if (matrix->matrix[i] == NULL)
 		{
 			// Handle error: memory allocation failed
 			printf("Memory allocation failed\n");
-			return (matrix);
+			return (*matrix);
 		}
 		j = 0;
 		while (j < size)
 		{
-			matrix.matrix[i][j] = 0;
+			matrix->matrix[i][j] = 0;
 			j++;
 		}
 		i++;
 	}
-	return (matrix);
+	return (*matrix);
 }
 
 /* Check if two matrices are equal. */

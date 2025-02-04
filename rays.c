@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 18:12:40 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:19:22 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	intersection2.t = (-b + sqrt(discriminant)) / (2 * a);
 	intersection2.object = &sphere;
 	result.count = 2;
-	result.array = (t_intersection *)malloc(sizeof(t_intersection) * 2);
+	result.array = (t_intersection *)calloc(2, sizeof(t_intersection));
 	//printf("intersection1.t: %f, intersection2.t: %f\n", intersection1.t, intersection2.t);
 	result.array[0] = intersection1;
 	result.array[1] = intersection2;

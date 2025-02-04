@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:45:59 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:57:20 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ t_matrix	submatrix(t_matrix a, int row, int column)
 
 	if (a.size < 2)
 	{
-		// Handle error: matrix is too small
+		printf("Error: Matrix is too small\n"); // Handle error: matrix is too small
 		return (a);
 	}
 	sub = create_matrix(a.size - 1);
 	x = 0;
 	i = 0;
-	x = 0;
 	while (i < a.size)
 	{
 		if (i == row)
@@ -125,9 +124,8 @@ t_matrix	inverse_matrix(t_matrix a)
 	det = determinant(a);
 	if (det == 0)
 	{
-		// Handle error: matrix is not invertible
 		printf("Matrix is not invertible\n");
-		return (a);
+		return (identity_matrix(4));
 	}
 	inverse = create_matrix(a.size);
 	i = 0;
