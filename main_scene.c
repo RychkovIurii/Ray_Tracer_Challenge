@@ -1,10 +1,10 @@
 #include "mini_rt.h"
 
-t_world *world_new()
+/* t_world *world_new()
 {
 	t_world	*w = (t_world *)calloc(1, sizeof(t_world));
 	return w;
-}
+} */
 
 /* t_sphere	sphere(t_material material, t_matrix transform)
 {
@@ -16,16 +16,6 @@ t_world *world_new()
 	s.material = material;
 	return (s);
 } */
-
-void print_matrix(t_matrix m)
-{
-	for (int i = 0; i < m.size; i++)
-	{
-		for (int j = 0; j < m.size; j++)
-			printf("%f ", m.matrix[i][j]);
-		printf("\n");
-	}
-}
 
 int main()
 {
@@ -120,7 +110,7 @@ int main()
 	t_canvas *canvas = render(camera, world);
 
 	// Save the canvas to a file
-	canvas_to_ppm(canvas, "scene.ppm");
+	canvas_to_ppm(canvas, "scene2.ppm");
 
 	// Free allocated memory
 	free_canvas(canvas);
