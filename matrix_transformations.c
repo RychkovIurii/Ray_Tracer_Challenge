@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:46:44 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/29 13:38:18 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:54:06 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_matrix	scaling_matrix(double x, double y, double z)
 {
 	t_matrix	result;
 
-	result = create_matrix(4);
+	result = identity_matrix(4);
 	result.matrix[0][0] = x;
 	result.matrix[1][1] = y;
 	result.matrix[2][2] = z;

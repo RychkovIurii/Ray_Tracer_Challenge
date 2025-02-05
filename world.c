@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 18:27:20 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:18:04 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_matrix identity_matrix(int size)
 	return id;
 }
 
-t_world default_world()
+/* t_world default_world()
 {
 	t_world world;
 	t_sphere *sphere1;
@@ -51,7 +51,7 @@ t_world default_world()
 	world.sphere[1] = sphere2;
 
 	return (world);
-}
+} */
 
 
 void	bubble_sort_intersections(t_intersection *array, int count)
@@ -90,6 +90,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 	t_intersection *xs_array;
 	int count = 0;
 	int total_intersections = 0;
+	temp_array = NULL;
 
 	// Allocate memory for intersections dynamically (in case there are more than 2 intersections)
 	xs_array = NULL;
@@ -137,7 +138,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 */
 t_tuple	shade_hit(t_world world, t_intersection comps)
 {
-	return (lighting(comps.object->material, world.light, comps.point, comps.eyev, comps.normalv));
+	return (lighting(comps.object.material, world.light, comps.point, comps.eyev, comps.normalv));
 }
 
 t_tuple	color_at(t_world world, t_ray ray)

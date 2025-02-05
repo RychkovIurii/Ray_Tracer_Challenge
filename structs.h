@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 08:43:11 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:15:10 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct	s_sphere
 typedef struct s_intersection
 {
 	double		t;
-	t_sphere	*object;
+	t_sphere	object;
 	t_tuple		point;
 	t_tuple		eyev; // vector
 	t_tuple		normalv; // vector
