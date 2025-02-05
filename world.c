@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 14:18:04 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:55:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_matrix identity_matrix(int size)
 	return id;
 }
 
-/* t_world default_world()
+t_world default_world()
 {
 	t_world world;
 	t_sphere *sphere1;
@@ -46,12 +46,12 @@ t_matrix identity_matrix(int size)
 	world.light = point_light(point(-10, 10, -10), create_color(1, 1, 1));
 
 	// Allocate memory for the sphere array in the world
-	world.sphere = (t_sphere **)calloc(2, sizeof(t_sphere *));
+	world.sphere = (t_sphere **)calloc(3, sizeof(t_sphere *));
 	world.sphere[0] = sphere1;
 	world.sphere[1] = sphere2;
 
 	return (world);
-} */
+}
 
 
 void	bubble_sort_intersections(t_intersection *array, int count)
@@ -99,7 +99,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 	int i = 0;
 	while(world.sphere[i] != NULL)
 	{
-		printf("Intersecting sphere %d\n", i);
+		//printf("Intersecting sphere %d\n", i);
 		temp = intersect_sphere(*world.sphere[i], ray);
 		temp_array = temp.array;
 		
@@ -138,7 +138,10 @@ t_intersects intersect_world(t_world world, t_ray ray)
 */
 t_tuple	shade_hit(t_world world, t_intersection comps)
 {
-	return (lighting(comps.object.material, world.light, comps.point, comps.eyev, comps.normalv));
+	int	shadowed;
+
+	shadowed = is_shadowed(world, comps.point);
+	return (lighting(comps.object.material, world.light, comps.point, comps.eyev, comps.normalv, shadowed));
 }
 
 t_tuple	color_at(t_world world, t_ray ray)
@@ -161,85 +164,31 @@ t_tuple	color_at(t_world world, t_ray ray)
 	return (color);
 }
 
-/* int main()
+
+int is_shadowed(t_world world, t_tuple point)
 {
-	t_world w = default_world();
-	t_ray r = create_ray(point(0, 0, -5), vector(0, 0, 1));
-	t_intersects xs = intersect_world(w, r);
-	t_intersection *hits = hit(xs);
-	if (hits != NULL && hits->t == 4)
-		printf("Test passed\n Hit point: %f\n", hits->t);
-	else
-		printf("Test failed\n Hit point: %f\n", hits->t);
+	t_tuple	v;
+	double	distance;
+	t_ray	r;
+	t_intersects	xs;
+	t_intersection	*hits;
+	int	i;
+
+	v = substract_tuple(world.light.position, point);
+	distance = magnitude(v);
+	r = create_ray(point, normalize(v));
+	xs = intersect_world(world, r);
+	hits = hit(xs);
+	i = 0;
+	while (i < xs.count)
+	{
+		if (hits && hits[i].t < distance)
+		{
+			free(xs.array);
+			return (1);
+		}
+		i++;
+	}
 	free(xs.array);
-	free(w.sphere[0]);
-	free(w.sphere[1]);
-	free(w.sphere);
 	return (0);
 }
- */
-/* 
-#include <assert.h>
-
-void	free_world(t_world *world)
-{
-	free(world->sphere[0]);
-	free(world->sphere[1]);
-	free(world->sphere);
-}
-
-void test_color_when_ray_misses()
-{
-	t_world world = default_world();
-	t_ray ray = create_ray(point(0, 0, -5), vector(0, 1, 0));
-
-	t_tuple color = color_at(world, ray);
-
-	assert(is_tuples_equal(color, create_color(0, 0, 0)));
-
-	free_world(&world);
-	printf("Test_color_when_ray_misses passed\n");
-}
-
-void test_color_when_ray_hits()
-{
-	t_world world = default_world();
-	t_ray ray = create_ray(point(0, 0, -5), vector(0, 0, 1));
-
-	t_tuple color = color_at(world, ray);
-
-	t_tuple expected_color = create_color(0.38066, 0.47583, 0.2855);
-	assert(is_tuples_equal(color, expected_color));
-
-	free_world(&world);
-	printf("Test_color_when_ray_hits passed\n");
-}
-
-void test_color_with_intersection_behind_ray()
-{
-	t_world world = default_world();
-	t_sphere *outer = world.sphere[0];
-	t_sphere *inner = world.sphere[1];
-
-	outer->material.ambient = 1;
-	inner->material.ambient = 1;
-
-	t_ray ray = create_ray(point(0, 0, 0.75), vector(0, 0, -1));
-
-	t_tuple color = color_at(world, ray);
-
-	assert(is_tuples_equal(color, inner->material.color));
-
-	free_world(&world);
-	printf("Test_color_with_intersection_behind_ray passed\n");
-}
-
-int main()
-{
-	test_color_when_ray_misses();
-	//test_color_when_ray_hits();
-	test_color_with_intersection_behind_ray();
-	printf("All tests passed!\n");
-	return 0;
-}
- */

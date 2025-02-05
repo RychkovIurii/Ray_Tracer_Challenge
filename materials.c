@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:13:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 16:26:53 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:51:31 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_material	material(t_tuple color, double ambient, double diffuse, double specul
 	return (material);
 }
 
-t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple eyeview, t_tuple normalv)
+t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple eyeview, t_tuple normalv, int in_shadow)
 {
 	t_tuple effective_color;
 	t_tuple lightv;
@@ -48,7 +48,7 @@ t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple e
 	lightv = normalize(substract_tuple(light.position, position));
 	ambient = multiply_tuple_scalar(effective_color, material.ambient);
 	light_dot_normal = dot(lightv, normalv);
-	if (light_dot_normal < 0)
+	if (light_dot_normal < 0 || in_shadow)
 	{
 		diffuse = create_color(0, 0, 0);
 		specular = create_color(0, 0, 0);
