@@ -101,7 +101,7 @@ int main()
 
 
 	// Camera
-	t_camera camera = create_camera(200, 100, M_PI / 3);
+	t_camera camera = create_camera(300, 150, M_PI / 3);
 	camera.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 	//printf("Camera matrix:\n");
 	//print_matrix(camera.transform);
@@ -110,7 +110,7 @@ int main()
 	t_canvas *canvas = render(camera, world);
 
 	// Save the canvas to a file
-	canvas_to_ppm(canvas, "scene2.ppm");
+	canvas_to_ppm(canvas, "scene3.ppm");
 
 	// Free allocated memory
 	free_canvas(canvas);

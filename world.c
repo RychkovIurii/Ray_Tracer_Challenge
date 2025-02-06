@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 15:55:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:41:38 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ t_tuple	shade_hit(t_world world, t_intersection comps)
 {
 	int	shadowed;
 
-	shadowed = is_shadowed(world, comps.point);
-	return (lighting(comps.object.material, world.light, comps.point, comps.eyev, comps.normalv, shadowed));
+	shadowed = is_shadowed(world, comps.over_point);
+	return (lighting(comps.object.material, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed));
 }
 
 t_tuple	color_at(t_world world, t_ray ray)
