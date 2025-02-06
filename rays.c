@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 14:21:12 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:35:39 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_ray	transform_ray(t_ray ray, t_matrix matrix)
 	Lowest value of t is a hit closest to the ray's origin.
 	We need all values for reflections and refractions.
 */
-t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
+/* t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 {
 	t_intersects result;
 	t_tuple		sphere_to_ray;
@@ -72,7 +72,7 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	b = 2 * dot(transformed_ray.direction, sphere_to_ray);
 	c = dot(sphere_to_ray, sphere_to_ray) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4 * a * c;
-/* 	printf("a: %f, b: %f, c: %f, discriminant: %f\n", a, b, c, discriminant); */
+//	printf("a: %f, b: %f, c: %f, discriminant: %f\n", a, b, c, discriminant);
 	if (discriminant < 0)
 	{
 		result.count = 0;
@@ -89,7 +89,7 @@ t_intersects	intersect_sphere(t_sphere sphere, t_ray ray)
 	result.array[0] = intersection1;
 	result.array[1] = intersection2;
 	return (result);
-}
+} */
 
 /*
 	Function returns the intersection of the ray with the object.
@@ -122,10 +122,10 @@ t_intersection	*hit(t_intersects intersections)
 	return (hit);
 }
 
-void set_transform(t_sphere *sphere, t_matrix transform)
+/* void set_transform(t_sphere *sphere, t_matrix transform)
 {
 	sphere->transform = transform;
-}
+} */
 
 /* 
 #include <stdio.h>

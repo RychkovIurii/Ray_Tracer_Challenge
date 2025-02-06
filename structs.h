@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/06 13:37:18 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:24:41 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,44 @@ typedef struct	s_material
 ** @param transform: t_matrix The transformation matrix of the sphere.
 ** @param material: t_material The material of the sphere.
 */
-typedef struct	s_sphere
+/* typedef struct	s_sphere
 {
 	t_tuple		center;
 	double		radius;
 	t_matrix	transform;
 	t_material	material;
+}				t_sphere; */
+
+/* typedef struct s_object {
+	t_matrix	transform;
+	t_material	material;
+}				t_object;
+
+typedef struct s_sphere {
+	t_object	base;
+	t_tuple		center;
+	double		radius;
+	t_matrix	transform;
+	t_material	material;
+}				t_sphere; */
+
+typedef enum { SHAPE_SPHERE, SHAPE_PLANE } t_shape_type;
+
+typedef struct s_shape {
+	t_matrix		transform;
+	t_material		material;
+	t_shape_type	type;
+	t_ray			saved_ray;
+	t_tuple			center;
+	double			radius;
+	 // for testing purposes
+}					t_shape;
+
+
+typedef struct s_sphere {
+	t_shape		base;
+	t_tuple		center;
+	double		radius;
 }				t_sphere;
 
 /* Structure for intersections.
@@ -100,7 +132,7 @@ typedef struct	s_sphere
 typedef struct s_intersection
 {
 	double		t;
-	t_sphere	object;
+	t_shape		*object;
 	t_tuple		point;
 	t_tuple 	over_point;
 	t_tuple		eyev; // vector

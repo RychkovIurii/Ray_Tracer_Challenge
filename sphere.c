@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:01:59 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 14:12:27 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:05:43 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** @param world_point: The point in the world.
 ** @return The normal vector of the sphere at that point.
 */
-t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
+/* t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
 {
 	t_tuple surface_normal;
 	t_tuple world_normal;
@@ -33,7 +33,7 @@ t_tuple	normal_at(t_sphere sphere, t_tuple world_point)
 	world_normal.w = 0;
 	surface_normal = normalize(world_normal);
 	return (surface_normal);
-}
+} */
 
 /* 
 #include <assert.h>

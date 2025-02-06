@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 14:44:48 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:33:26 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_matrix	inverse_matrix(t_matrix a)
 		exit(1); // Handle error, potentially return an invalid matrix
 	}
 	det = determinant(a);
-	if (det == 0)
+	if (fabs(det) < 1e-6) //(det == 0)
 	{
 		printf("Matrix is not invertible\n");
 		//print_matrix(a);
