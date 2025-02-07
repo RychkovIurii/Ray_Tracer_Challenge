@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 12:46:40 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:42:31 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_pattern
 {
 	t_tuple		color_a;
 	t_tuple		color_b;
-/* 	t_matrix	transform; */
+	t_matrix	transform;
 }				t_pattern;
 
 /* Structure for materials.
@@ -131,7 +131,7 @@ typedef struct s_sphere {
 
 /* Structure for intersections.
 ** @param t: double The t value of the intersection.
-** @param *object: t_sphere The object of the intersection.
+** @param *object: t_shape The object of the intersection.
 ** @param point: t_tuple The point of the intersection.
 ** @param eyev: t_tuple The eye vector.
 ** @param normalv: t_tuple The normal vector.

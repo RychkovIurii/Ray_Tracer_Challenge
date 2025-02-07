@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:39:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 12:55:49 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:52:20 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int main()
 	t_matrix rot_x1 = rotation_x_matrix(M_PI / 2);
 	t_matrix transl1 = translation_matrix(0, 5, 5);
 	ceil->transform = multiply_matrices(transl1, rot_x1);
-	ceil->material = material(create_color(0.6, 0.6, 0.6), 0.1, 0.9, 0, 200.0, 1);
+	ceil->material = material(create_color(0.9, 0.9, 0.9), 0.1, 0.9, 0, 200.0, 1);
 	world.shapes[1] = ceil;
 
 
@@ -83,7 +83,7 @@ int main()
 	t_canvas *canvas = render(camera, world);
 
 	// Save the canvas to a file
-	canvas_to_ppm(canvas, "pattern2.ppm");
+	canvas_to_ppm(canvas, "pattern3.ppm");
 
 	// Free allocated memory
 	free_canvas(canvas);
