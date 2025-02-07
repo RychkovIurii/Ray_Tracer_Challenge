@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 11:30:27 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/06 15:20:44 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:35:29 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 t_ray			create_ray(t_tuple origin, t_tuple direction);
 t_tuple			get_ray_position(t_ray ray, double t);
 t_ray	transform_ray(t_ray ray, t_matrix matrix);
-t_intersects	intersect_sphere(t_sphere sphere, t_ray ray);
+/* t_intersects	intersect_sphere(t_sphere sphere, t_ray ray); */
 t_intersection	*hit(t_intersects intersections);
 /* void set_transform(t_sphere *sphere, t_matrix transform); */
 

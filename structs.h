@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/06 23:24:41 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:46:40 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ typedef struct	s_ray
 	t_tuple	direction;	//vector
 }			t_ray;
 
+typedef struct	s_pattern
+{
+	t_tuple		color_a;
+	t_tuple		color_b;
+/* 	t_matrix	transform; */
+}				t_pattern;
+
 /* Structure for materials.
 ** @param color: t_tuple The color of the material.
 ** @param ambient: double The ambient light of the material.
@@ -58,11 +65,13 @@ typedef struct	s_ray
 */
 typedef struct	s_material
 {
-	t_tuple	color;
-	double	ambient;
-	double	diffuse;
-	double	specular;
-	double	shininess;
+	t_tuple		color;
+	double		ambient;
+	double		diffuse;
+	double		specular;
+	double		shininess;
+	t_pattern	pattern;
+	int			has_pattern;
 }			t_material;
 
 /* Structure for spheres.
@@ -98,10 +107,9 @@ typedef struct s_shape {
 	t_matrix		transform;
 	t_material		material;
 	t_shape_type	type;
-	t_ray			saved_ray;
+	t_ray			saved_ray;// test
 	t_tuple			center;
 	double			radius;
-	 // for testing purposes
 }					t_shape;
 
 
@@ -167,7 +175,7 @@ typedef struct	s_light
 typedef struct s_world
 {
 	t_light		light;
-	t_sphere	**sphere;
+	t_shape		**shapes;
 }				t_world;
 
 /* Structure for camera.

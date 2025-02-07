@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/06 13:41:38 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:02:27 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_matrix identity_matrix(int size)
 	return id;
 }
 
-t_world default_world()
+/* t_world default_world()
 {
 	t_world world;
 	t_sphere *sphere1;
@@ -51,7 +51,7 @@ t_world default_world()
 	world.sphere[1] = sphere2;
 
 	return (world);
-}
+} */
 
 
 void	bubble_sort_intersections(t_intersection *array, int count)
@@ -97,10 +97,10 @@ t_intersects intersect_world(t_world world, t_ray ray)
 
 	// Intersect all spheres in the world
 	int i = 0;
-	while(world.sphere[i] != NULL)
+	while(world.shapes[i] != NULL)
 	{
 		//printf("Intersecting sphere %d\n", i);
-		temp = intersect_sphere(*world.sphere[i], ray);
+		temp = intersect(world.shapes[i], ray);
 		temp_array = temp.array;
 		
 		// If there are any intersections, resize the array and copy them
@@ -141,7 +141,7 @@ t_tuple	shade_hit(t_world world, t_intersection comps)
 	int	shadowed;
 
 	shadowed = is_shadowed(world, comps.over_point);
-	return (lighting(comps.object.material, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed));
+	return (lighting(comps.object->material, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed));
 }
 
 t_tuple	color_at(t_world world, t_ray ray)

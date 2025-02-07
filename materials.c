@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:13:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 14:51:31 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:58:48 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** @param shininess: The shininess of the material.
 ** @return The struct of the material.
 */
-t_material	material(t_tuple color, double ambient, double diffuse, double specular, double shininess)
+t_material	material(t_tuple color, double ambient, double diffuse, double specular, double shininess, int has_pattern)
 {
 	t_material material;
 
@@ -29,11 +29,15 @@ t_material	material(t_tuple color, double ambient, double diffuse, double specul
 	material.diffuse = diffuse;
 	material.specular = specular;
 	material.shininess = shininess;
+	material.has_pattern = has_pattern;
+	if (has_pattern)
+		material.pattern = stripe_pattern(create_color(1, 1, 1), create_color(0.941, 0.078, 0.694));
 	return (material);
 }
 
 t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple eyeview, t_tuple normalv, int in_shadow)
 {
+	t_tuple color;
 	t_tuple effective_color;
 	t_tuple lightv;
 	t_tuple reflectv;
@@ -44,7 +48,11 @@ t_tuple	lighting(t_material material, t_light light, t_tuple position, t_tuple e
 	t_tuple specular;
 	double factor;
 
-	effective_color = multiply_color(material.color, light.intensity);
+	if (material.has_pattern)
+		color = stripe_at(material.pattern, position);
+	else
+		color = material.color;
+	effective_color = multiply_color(color, light.intensity);
 	lightv = normalize(substract_tuple(light.position, position));
 	ambient = multiply_tuple_scalar(effective_color, material.ambient);
 	light_dot_normal = dot(lightv, normalv);
