@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:13:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 13:36:08 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:43:53 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_material	material(t_tuple color, double ambient, double diffuse, double specul
 	material.specular = specular;
 	material.shininess = shininess;
 	material.has_pattern = has_pattern;
-	if (has_pattern)
-		material.pattern = stripe_pattern(create_color(1, 1, 1), create_color(0.941, 0.078, 0.694));
+	/* if (has_pattern)
+		material.pattern = stripe_pattern(create_color(1, 1, 1), create_color(0.941, 0.078, 0.694)); */
 	return (material);
 }
 
@@ -49,7 +49,7 @@ t_tuple	lighting(t_material material, t_shape shape, t_light light, t_tuple posi
 	double factor;
 
 	if (material.has_pattern)
-		color = stripe_at_object(material.pattern, shape, position);
+		color = pattern_at_object(material.pattern, shape, position);
 	else
 		color = material.color;
 	effective_color = multiply_color(color, light.intensity);

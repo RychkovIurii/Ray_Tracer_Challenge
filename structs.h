@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 13:42:31 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:38:11 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define STRUCTS_H
 
 # include "mini_rt.h"
+
+# define PATTERN_STRIPE 1
+# define PATTERN_GRADIENT 2
+# define PATTERN_RING 3
+# define PATTERN_CHECKER 4
 
 /* Structure for tuples. We use tuples to represent points and vectors, colors.
 ** @param x: double The x value of the tuple.

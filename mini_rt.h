@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:50:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 14:04:22 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:45:09 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void			print_matrix(t_matrix m);
 int				is_shadowed(t_world world, t_tuple point);
 t_tuple	stripe_at(t_pattern pattern, t_tuple point);
 t_pattern		stripe_pattern(t_tuple a, t_tuple b);
-t_tuple stripe_at_object(t_pattern pattern, t_shape shape, t_tuple world_point);
+t_tuple pattern_at_object(t_pattern pattern, t_shape shape, t_tuple world_point);
 t_material default_material();
 void free_intersects(t_intersects *xs);
 t_shape create_shape(t_shape_type type);
