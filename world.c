@@ -6,11 +6,13 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 13:45:55 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:56:34 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+t_tuple			color_at(t_world world, t_ray ray, int remaining);
 
 t_matrix identity_matrix(int size)
 {
@@ -130,21 +132,44 @@ t_intersects intersect_world(t_world world, t_ray ray)
 	return (xs);
 }
 
+
+t_tuple reflected_color(t_world world, t_intersection comps, int remaining)
+{
+	t_tuple	color;
+	t_ray	reflected_ray;
+	t_tuple	reflect_color;
+
+	if (remaining <= 0)
+		return (create_color(0, 0, 0));
+	if (comps.object->material.reflective == 0)
+		return (create_color(0, 0, 0));
+	reflected_ray = create_ray(comps.over_point, comps.reflectv);
+	color = color_at(world, reflected_ray, remaining - 1);
+	reflect_color = multiply_tuple_scalar(color, comps.object->material.reflective);
+	return (reflect_color);
+}
+
+
 /* The function ought to return the color at the intersection encapsulated by comps, in the given world.
 ** P.S. If we have more than one light source, we will have to loop through all of them and sum the results.
 ** @param world: t_world The world.
 ** @param comps: t_intersection The intersection.
 ** @return: t_tuple The color at the intersection.
 */
-t_tuple	shade_hit(t_world world, t_intersection comps)
+t_tuple	shade_hit(t_world world, t_intersection comps, int remaining)
 {
 	int	shadowed;
+	t_tuple	surface;
+	t_tuple reflected;
 
 	shadowed = is_shadowed(world, comps.over_point);
-	return (lighting(comps.object->material, *comps.object, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed));
+	surface = lighting(comps.object->material, *comps.object, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed);
+	reflected = reflected_color(world, comps, remaining);
+
+	return (add_tuple(surface, reflected));
 }
 
-t_tuple	color_at(t_world world, t_ray ray)
+t_tuple	color_at(t_world world, t_ray ray, int remaining)
 {
 	t_intersects	xs;
 	t_intersection	*hits;
@@ -159,7 +184,7 @@ t_tuple	color_at(t_world world, t_ray ray)
 		return (create_color(0, 0, 0));
 	}
 	comps = prepare_computations(*hits, ray);
-	color = shade_hit(world, comps);
+	color = shade_hit(world, comps, remaining);
 	free(xs.array);
 	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:40:55 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 14:03:29 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:24:21 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_material default_material()
 	mat.specular = 0.9;
 	mat.shininess = 200.0;
 	mat.has_pattern = 0;
+	mat.reflective = 0.0;
 	return (mat);
 }
 
