@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:50:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 19:20:24 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 23:49:50 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void			free_intersects(t_intersects *xs);
 t_shape			create_shape(t_shape_type type);
 void			set_transform(t_shape *shape, t_matrix transform);
 void	ft_bzero(void *s, size_t n);
+t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersects *xs);
+t_tuple refracted_color(t_world world, t_intersection comps, int remaining, t_intersects *xs);
 
 
 #endif
