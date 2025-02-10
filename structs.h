@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 15:07:35 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:23:59 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ typedef struct s_intersection
 	double		t;
 	t_shape		*object;
 	t_tuple		point;
-	t_tuple 	over_point;
+	t_tuple 	over_point; // for reflection
+	t_tuple 	under_point; // for refraction
 	t_tuple		eyev; // vector
 	t_tuple		normalv; // vector
 	int			inside;

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:50:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 11:13:10 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:20:24 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_material		material(t_tuple color, double ambient, double diffuse, double specu
 t_tuple			lighting(t_material material, t_shape shape, t_light light, t_tuple position, t_tuple eyeview, t_tuple normalv, int in_shadow);
 /* t_tuple			normal_at(t_sphere sphere, t_tuple world_point); */
 t_tuple	normal_at(t_shape *shape, t_tuple world_point);
-t_intersection	prepare_computations(t_intersection hit, t_ray ray);
+t_intersection	prepare_computations(t_intersection hit, t_ray ray, t_intersects *xs);
 t_matrix 		view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_matrix		identity_matrix(int size);
 t_intersects 	intersect(t_shape *shape, t_ray ray);

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:47:13 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:37:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ void	bubble_sort_intersections(t_intersection *array, int count)
 t_intersects intersect_world(t_world world, t_ray ray)
 {
 	t_intersects xs;
-	t_intersecthenbuskaion *temp_array;
+	t_intersection *temp_array;
 	t_intersection *xs_array;
+	t_intersects temp;
 	int count = 0;
 	int total_intersections = 0;
 	temp_array = NULL;
@@ -154,6 +155,38 @@ t_tuple reflected_color(t_world world, t_intersection comps, int remaining, t_in
 	return (reflect_color);
 }
 
+t_tuple refracted_color(t_world world, t_intersection comps, int remaining, t_intersects *xs)
+{
+	t_tuple	refracted_color;
+	t_ray	refracted_ray;
+	double	n_ratio;
+	double	cos_i;
+	double	sin2_t;
+	double	cos_t;
+	t_tuple	direction;
+	t_intersection	*hit_obj;
+
+	if (remaining <= 0)
+		return (create_color(0, 0, 0));
+	if (comps.object->material.transparency == 0)
+		return (create_color(0, 0, 0));
+	n_ratio = comps.n1 / comps.n2;
+	cos_i = dot(comps.eyev, comps.normalv);
+	sin2_t = n_ratio * n_ratio * (1 - cos_i * cos_i);
+	if (sin2_t > 1)
+		return (create_color(0, 0, 0));
+	cos_t = sqrt(1.0 - sin2_t);
+	direction = substract_tuple(multiply_tuple_scalar(comps.normalv, n_ratio * cos_i - cos_t), multiply_tuple_scalar(comps.eyev, n_ratio));
+	refracted_ray = create_ray(comps.under_point, direction);
+	if (remaining < DEFAULT_REMAINING)
+	{
+		free(xs->array);
+		xs->array = NULL;
+	}
+	refracted_color = color_at(world, refracted_ray, remaining - 1);
+	return (multiply_tuple_scalar(refracted_color, comps.object->material.transparency));
+}
+
 
 /* The function ought to return the color at the intersection encapsulated by comps, in the given world.
 ** P.S. If we have more than one light source, we will have to loop through all of them and sum the results.
@@ -166,12 +199,15 @@ t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersec
 	int	shadowed;
 	t_tuple	surface;
 	t_tuple reflected;
+	t_tuple refracted;
+	t_tuple	color;
 
 	shadowed = is_shadowed(world, comps.over_point);
 	surface = lighting(comps.object->material, *comps.object, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed);
 	reflected = reflected_color(world, comps, remaining, xs);
-
-	return (add_tuple(surface, reflected));
+	refracted = refracted_color(world, comps, remaining, xs);
+	color = add_tuple(add_tuple(surface, reflected), refracted);
+	return (color);
 }
 
 t_tuple	color_at(t_world world, t_ray ray, int remaining)
