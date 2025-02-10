@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:42:12 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:46:53 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:12:39 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,31 @@ void	ft_lstclear_safe(t_list **lst)
 			ptr = tmp;
 		}
 		*lst = NULL;
+	}
+}
+
+void	ft_lstremove(t_list **lst, void *content)
+{
+	t_list	*ptr;
+	t_list	*prev;
+
+	if (lst == NULL || *lst == NULL)
+		return ;
+	ptr = *lst;
+	prev = NULL;
+	while (ptr != NULL)
+	{
+		if (ptr->content == content)
+		{
+			if (prev == NULL)
+				*lst = ptr->next;
+			else
+				prev->next = ptr->next;
+			free(ptr);
+			return ;
+		}
+		prev = ptr;
+		ptr = ptr->next;
 	}
 }
 
