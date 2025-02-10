@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 14:09:32 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:47:13 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ void	bubble_sort_intersections(t_intersection *array, int count)
 t_intersects intersect_world(t_world world, t_ray ray)
 {
 	t_intersects xs;
-	t_intersects temp;
-	t_intersection *temp_array;
+	t_intersecthenbuskaion *temp_array;
 	t_intersection *xs_array;
 	int count = 0;
 	int total_intersections = 0;
@@ -190,7 +189,7 @@ t_tuple	color_at(t_world world, t_ray ray, int remaining)
 		xs.array = NULL;
 		return (create_color(0, 0, 0));
 	}
-	comps = prepare_computations(*hits, ray);
+	comps = prepare_computations(*hits, ray, &xs);
 	color = shade_hit(world, comps, remaining, &xs);
 	free(xs.array);
 	xs.array = NULL;

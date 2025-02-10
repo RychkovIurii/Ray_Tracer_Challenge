@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 14:16:25 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:07:35 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct	s_material
 	t_pattern	pattern;
 	int			has_pattern;
 	double		reflective;
+	double		transparency;
+	double		refractive_index;
 }			t_material;
 
 /* Structure for spheres.
@@ -156,6 +158,8 @@ typedef struct s_intersection
 	t_tuple		normalv; // vector
 	int			inside;
 	t_tuple		reflectv; // vector
+	double		n1;
+	double		n2;
 }				t_intersection;
 
 /* Structure for intersections.
