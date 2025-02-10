@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 17:27:29 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:16:25 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 # include "mini_rt.h"
 
+# define PATTERN_NONE 0
 # define PATTERN_STRIPE 1
 # define PATTERN_GRADIENT 2
 # define PATTERN_RING 3
 # define PATTERN_CHECKER 4
+
+# define DEFAULT_REMAINING 4
 
 /* Structure for tuples. We use tuples to represent points and vectors, colors.
 ** @param x: double The x value of the tuple.
@@ -41,7 +44,7 @@ typedef struct	s_tuple
 typedef struct	s_matrix
 {
 	int		size;
-	double	**matrix;
+	double	matrix[4][4];
 }			t_matrix;
 
 /* Structure for rays.

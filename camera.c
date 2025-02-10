@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:09:13 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 17:55:09 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:59:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_canvas *render(t_camera camera, t_world world)
 		for (int x = 0; x < camera.hsize; x++)
 		{
 			t_ray ray = ray_for_pixel(camera, x, y);
-			t_tuple color = color_at(world, ray, 4);
+			t_tuple color = color_at(world, ray, DEFAULT_REMAINING);
 			write_pixel(image, x, y, color);
 		}
 	}

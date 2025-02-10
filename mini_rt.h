@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:50:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 17:55:56 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:13:10 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_material		default_material();
 void			free_intersects(t_intersects *xs);
 t_shape			create_shape(t_shape_type type);
 void			set_transform(t_shape *shape, t_matrix transform);
+void	ft_bzero(void *s, size_t n);
 
 
 #endif

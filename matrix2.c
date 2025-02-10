@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/06 23:33:26 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:57:48 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ double	minor_matrix(t_matrix a, int row, int column)
 
 	sub = submatrix(a, row, column);
 	det = determinant(sub);
-	free_matrix(sub);
+	//free_matrix(sub);
 	return (det);
 }
 

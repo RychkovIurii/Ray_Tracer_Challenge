@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/04 18:40:42 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:56:39 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 Allocate memory for the matrix and initialize it with zeros.
 ** @param size: The size of the matrix.
 ** @return The matrix of the given size. */
-t_matrix	create_matrix(int size)
+/* t_matrix	create_matrix(int size)
 {
 	t_matrix	*matrix;
 	int			i;
@@ -50,6 +50,22 @@ t_matrix	create_matrix(int size)
 		i++;
 	}
 	return (*matrix);
+} */
+
+t_matrix create_matrix(int size)
+{
+	t_matrix matrix;
+	int i, j;
+
+	matrix.size = size;
+	for (i = 0; i < size; i++)
+	{
+		for (j = 0; j < size; j++)
+		{
+			matrix.matrix[i][j] = 0.0;
+		}
+	}
+	return matrix;
 }
 
 /* Check if two matrices are equal. */

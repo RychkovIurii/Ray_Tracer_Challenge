@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 17:56:34 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:09:32 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 			}
 			total_intersections += temp.count;
 		}
+		free_intersects(&temp);
 		i++;
 	}
 	//printf("Before sorting:\n");
@@ -133,7 +134,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 }
 
 
-t_tuple reflected_color(t_world world, t_intersection comps, int remaining)
+t_tuple reflected_color(t_world world, t_intersection comps, int remaining, t_intersects *xs)
 {
 	t_tuple	color;
 	t_ray	reflected_ray;
@@ -144,6 +145,11 @@ t_tuple reflected_color(t_world world, t_intersection comps, int remaining)
 	if (comps.object->material.reflective == 0)
 		return (create_color(0, 0, 0));
 	reflected_ray = create_ray(comps.over_point, comps.reflectv);
+	if (remaining < DEFAULT_REMAINING)
+	{
+		free(xs->array);
+		xs->array = NULL;
+	}
 	color = color_at(world, reflected_ray, remaining - 1);
 	reflect_color = multiply_tuple_scalar(color, comps.object->material.reflective);
 	return (reflect_color);
@@ -156,7 +162,7 @@ t_tuple reflected_color(t_world world, t_intersection comps, int remaining)
 ** @param comps: t_intersection The intersection.
 ** @return: t_tuple The color at the intersection.
 */
-t_tuple	shade_hit(t_world world, t_intersection comps, int remaining)
+t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersects *xs)
 {
 	int	shadowed;
 	t_tuple	surface;
@@ -164,7 +170,7 @@ t_tuple	shade_hit(t_world world, t_intersection comps, int remaining)
 
 	shadowed = is_shadowed(world, comps.over_point);
 	surface = lighting(comps.object->material, *comps.object, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed);
-	reflected = reflected_color(world, comps, remaining);
+	reflected = reflected_color(world, comps, remaining, xs);
 
 	return (add_tuple(surface, reflected));
 }
@@ -180,12 +186,14 @@ t_tuple	color_at(t_world world, t_ray ray, int remaining)
 	hits = hit(xs);
 	if (hits == NULL)
 	{
-		//free(xs.array);
+		free(xs.array);
+		xs.array = NULL;
 		return (create_color(0, 0, 0));
 	}
 	comps = prepare_computations(*hits, ray);
-	color = shade_hit(world, comps, remaining);
+	color = shade_hit(world, comps, remaining, &xs);
 	free(xs.array);
+	xs.array = NULL;
 	return (color);
 }
 
@@ -196,24 +204,19 @@ int is_shadowed(t_world world, t_tuple point)
 	double	distance;
 	t_ray	r;
 	t_intersects	xs;
-	t_intersection	*hits;
+	t_intersection	*hit_obj;
 	int	i;
 
 	v = substract_tuple(world.light.position, point);
 	distance = magnitude(v);
 	r = create_ray(point, normalize(v));
 	xs = intersect_world(world, r);
-	hits = hit(xs);
-	i = 0;
-	while (i < xs.count)
+	hit_obj = hit(xs);
+	if (hit_obj && hit_obj->t < distance)
 	{
-		if (hits && hits[i].t < distance)
-		{
-			free(xs.array);
-			return (1);
-		}
-		i++;
+		free_intersects(&xs);
+		return (1);
 	}
-	free(xs.array);
+	free_intersects(&xs);
 	return (0);
 }
