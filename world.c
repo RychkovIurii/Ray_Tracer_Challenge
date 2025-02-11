@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 14:31:15 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:27:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	}
 	else if (comps.object->material.transparency > 0)
 	{
-		color = add_tuple(surface, refracted);
+		color = add_tuple(refracted, add_tuple(surface, reflected));
 	}
 	else
 	{

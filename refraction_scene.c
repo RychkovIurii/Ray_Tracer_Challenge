@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 13:43:45 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 15:55:59 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:22:16 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int main()
     world.shapes[1] = bottom_sphere;
 
 	// Light source
-	world.light = point_light(point(10, 10, -10), create_color(1, 1, 1));
+	world.light = point_light(point(7, 10, -5), create_color(1, 1, 1));
 
 
 	// Camera:
     // For a top-down view, place the camera high above and look at the scene center.
     // Here, we position the camera at (0, 10, 0) looking toward (0, 0, 0). Since the view
     // direction is vertical, we choose an up vector that is not parallel to it; for example, (0, 0, -1).
-	t_camera camera = create_camera(400, 200, M_PI / 3);
+	t_camera camera = create_camera(200, 100, M_PI / 3);
 	camera.transform = view_transform(point(0, 5, -10), point(0, 0, 0), vector(0, 1, 0));
 
     // Camera: choose a viewpoint that clearly shows the ball on the floor.
@@ -66,7 +66,7 @@ int main()
 	t_canvas *canvas = render(camera, &world);
 
 	// Save the canvas to a file
-	canvas_to_ppm(canvas, "refraction_scene7a.ppm");
+	canvas_to_ppm(canvas, "refract_test.ppm");
 
 	// Free allocated memory
 	free_canvas(canvas);
