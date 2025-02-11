@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 12:21:01 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:31:15 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	bubble_sort_intersections(t_intersection *array, int count)
 		j = 0;
 		while (j < count - 1)
 		{
-			//printf("array[j].t: %f\n", array[j].t);
-			//printf("array[j + 1].t: %f\n", array[j + 1].t);
 			if (array[j].t > array[j + 1].t)
 			{
 				temp = array[j];
@@ -94,10 +92,6 @@ t_intersects intersect_world(t_world *world, t_ray ray)
 	int total_intersections = 0;
 	temp_array = NULL;
 
-	printf("📌 intersect_world(): Checking shapes for ray (%.5f, %.5f, %.5f) → (%.5f, %.5f, %.5f)\n",
-           ray.origin.x, ray.origin.y, ray.origin.z,
-           ray.direction.x, ray.direction.y, ray.direction.z);
-
 	// Allocate memory for intersections dynamically (in case there are more than 2 intersections)
 	xs_array = NULL;
 
@@ -105,8 +99,6 @@ t_intersects intersect_world(t_world *world, t_ray ray)
 	int i = 0;
 	while(world->shapes[i] != NULL)
 	{
-		printf("   🔹 Checking shape %d (Type %d)\n", i, world->shapes[i]->type);
-		//printf("Intersecting sphere %d\n", i);
 		temp = intersect(world->shapes[i], ray);
 		temp_array = temp.array;
 		
@@ -123,16 +115,11 @@ t_intersects intersect_world(t_world *world, t_ray ray)
 		free_intersects(&temp);
 		i++;
 	}
-	//printf("Before sorting:\n");
-	/* for (int i = 0; i < total_intersections; i++) {
-		printf("Intersection %d: t = %f\n", i, xs_array[i].t);
-	} */
 
 	// If there are any intersections, sort them
 	if (total_intersections > 0) {
 		bubble_sort_intersections(xs_array, total_intersections);
 	}
-	printf("📌 intersect_world(): Found %d intersections.\n", total_intersections);
 	xs.count = total_intersections;
 	xs.array = xs_array;
 	return (xs);
@@ -150,11 +137,11 @@ t_tuple reflected_color(t_world *world, t_intersection comps, int remaining, t_i
 	if (comps.object->material.reflective == 0)
 		return (create_color(0, 0, 0));
 	reflected_ray = create_ray(comps.over_point, comps.reflectv);
-	if (remaining < DEFAULT_REMAINING)
+/* 	if (remaining < DEFAULT_REMAINING)
 	{
 		free(xs->array);
 		xs->array = NULL;
-	}
+	} */
 	color = color_at(world, reflected_ray, remaining - 1);
 	reflect_color = multiply_tuple_scalar(color, comps.object->material.reflective);
 	return (reflect_color);
@@ -183,16 +170,35 @@ t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_i
 	cos_t = sqrt(1.0 - sin2_t);
 	direction = substract_tuple(multiply_tuple_scalar(comps.normalv, n_ratio * cos_i - cos_t), multiply_tuple_scalar(comps.eyev, n_ratio));
 	refracted_ray = create_ray(comps.under_point, direction);
-	printf("📌 Refracted Ray: Origin (%.5f, %.5f, %.5f), Dir (%.5f, %.5f, %.5f)\n",
-           refracted_ray.origin.x, refracted_ray.origin.y, refracted_ray.origin.z,
-           refracted_ray.direction.x, refracted_ray.direction.y, refracted_ray.direction.z);
-	if (remaining < DEFAULT_REMAINING)
+/* 	if (remaining < DEFAULT_REMAINING)
 	{
 		free(xs->array);
 		xs->array = NULL;
-	}
+	} */
 	refract_color = color_at(world, refracted_ray, remaining - 1);
 	return (multiply_tuple_scalar(refract_color, comps.object->material.transparency));
+}
+
+double schlick(t_intersection comps)
+{
+	double	cos;
+	double	n_ratio;
+	double	sin2_t;
+	double	cos_t;
+	double	r0;
+
+	cos = dot(comps.eyev, comps.normalv);
+	if (comps.n1 > comps.n2)
+	{
+		n_ratio = comps.n1 / comps.n2;
+		sin2_t = n_ratio * n_ratio * (1 - cos * cos);
+		if (sin2_t > 1)
+			return (1.0);
+		cos_t = sqrt(1.0 - sin2_t);
+		cos = cos_t;
+	}
+	r0 = pow((comps.n1 - comps.n2) / (comps.n1 + comps.n2), 2);
+	return (r0 + (1 - r0) * pow(1 - cos, 5));
 }
 
 
@@ -208,20 +214,29 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	t_tuple	surface;
 	t_tuple reflected;
 	t_tuple refracted;
+	double	reflectance;
 	t_tuple	color;
 
 	shadowed = is_shadowed(*world, comps.over_point);
 	surface = lighting(comps.object->material, *comps.object, world->light, comps.over_point, comps.eyev, comps.normalv, shadowed);
 	reflected = reflected_color(world, comps, remaining, xs);
 	refracted = refracted_color(world, comps, remaining, xs);
-	printf("📌 Shade Hit Debug: Surface (%.5f, %.5f, %.5f), Reflected (%.5f, %.5f, %.5f), Refracted (%.5f, %.5f, %.5f)\n",
-		surface.x, surface.y, surface.z,
-		reflected.x, reflected.y, reflected.z,
-		refracted.x, refracted.y, refracted.z);
-	if (comps.object->material.transparency > 0)
-        color = add_tuple(add_tuple(surface, reflected), refracted);
-    else
-        color = add_tuple(surface, reflected);
+	// If the material is both reflective and transparent, use Schlick's approximation.
+	if (comps.object->material.transparency > 0 && comps.object->material.reflective > 0)
+	{
+		reflectance = schlick(comps);  // Compute the reflectance at the intersection.
+		color = add_tuple(surface,
+				add_tuple(multiply_tuple_scalar(reflected, reflectance),
+						multiply_tuple_scalar(refracted, 1.0 - reflectance)));
+	}
+	else if (comps.object->material.transparency > 0)
+	{
+		color = add_tuple(surface, refracted);
+	}
+	else
+	{
+		color = add_tuple(surface, reflected);
+	}
 	return (color);
 }
 
@@ -234,20 +249,14 @@ t_tuple	color_at(t_world *world, t_ray ray, int remaining)
 
 	xs = intersect_world(world, ray);
 	hits = hit(xs);
-	printf("📌 color_at(): Ray Origin (%.5f, %.5f, %.5f) → (%.5f, %.5f, %.5f)\n",
-           ray.origin.x, ray.origin.y, ray.origin.z,
-           ray.direction.x, ray.direction.y, ray.direction.z);
 	if (hits == NULL)
 	{
-		printf("❌ color_at(): No intersections found. Returning black.\n");
 		free(xs.array);
 		xs.array = NULL;
 		return (create_color(0, 0, 0));
 	}
-	printf("✅ color_at(): Found %d intersections.\n", xs.count);
 	comps = prepare_computations(*hits, ray, &xs);
 	color = shade_hit(world, comps, remaining, &xs);
-	printf("📌 color_at(): Computed color (%.5f, %.5f, %.5f)\n", color.x, color.y, color.z);
 	free(xs.array);
 	xs.array = NULL;
 	return (color);

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:45:41 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 12:26:45 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:33:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void test_refracted_color_with_refraction()
     A->material.ambient = 1.0; 
 	A->material.has_pattern = PATTERN_CHECKER;
     A->material.pattern = stripe_pattern(create_color(1, 1, 1), create_color(0, 0, 0));
+    A->material.refractive_index = 1.0;
 	world.shapes[0] = A;
 
     t_shape *B = (t_shape *)calloc(1, sizeof(t_shape));
@@ -201,6 +202,7 @@ void test_shade_hit_with_transparency()
     t_shape *floor = (t_shape *)calloc(1, sizeof(t_shape));
     floor->type = SHAPE_PLANE;
     floor->transform = translation_matrix(0, -1, 0);
+    floor->material = material(create_color(1, 1, 1), 0.1, 0.9, 0.9, 200.0, 0);
     floor->material.transparency = 0.5;
     floor->material.refractive_index = 1.5;
     world.shapes[0] = floor;
