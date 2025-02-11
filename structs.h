@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:31:56 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 19:23:59 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:42:43 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define PATTERN_RING 3
 # define PATTERN_CHECKER 4
 
-# define DEFAULT_REMAINING 4
+# define DEFAULT_REMAINING 7
 
 /* Structure for tuples. We use tuples to represent points and vectors, colors.
 ** @param x: double The x value of the tuple.
