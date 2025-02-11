@@ -6,13 +6,13 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 00:24:53 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:21:01 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_tuple			color_at(t_world world, t_ray ray, int remaining);
+t_tuple			color_at(t_world *world, t_ray ray, int remaining);
 
 t_matrix identity_matrix(int size)
 {
@@ -84,7 +84,7 @@ void	bubble_sort_intersections(t_intersection *array, int count)
 }
 
 // Function to find the intersections in the world
-t_intersects intersect_world(t_world world, t_ray ray)
+t_intersects intersect_world(t_world *world, t_ray ray)
 {
 	t_intersects xs;
 	t_intersection *temp_array;
@@ -103,11 +103,11 @@ t_intersects intersect_world(t_world world, t_ray ray)
 
 	// Intersect all spheres in the world
 	int i = 0;
-	while(world.shapes[i] != NULL)
+	while(world->shapes[i] != NULL)
 	{
-		printf("   🔹 Checking shape %d (Type %d)\n", i, world.shapes[i]->type);
+		printf("   🔹 Checking shape %d (Type %d)\n", i, world->shapes[i]->type);
 		//printf("Intersecting sphere %d\n", i);
-		temp = intersect(world.shapes[i], ray);
+		temp = intersect(world->shapes[i], ray);
 		temp_array = temp.array;
 		
 		// If there are any intersections, resize the array and copy them
@@ -139,7 +139,7 @@ t_intersects intersect_world(t_world world, t_ray ray)
 }
 
 
-t_tuple reflected_color(t_world world, t_intersection comps, int remaining, t_intersects *xs)
+t_tuple reflected_color(t_world *world, t_intersection comps, int remaining, t_intersects *xs)
 {
 	t_tuple	color;
 	t_ray	reflected_ray;
@@ -160,7 +160,7 @@ t_tuple reflected_color(t_world world, t_intersection comps, int remaining, t_in
 	return (reflect_color);
 }
 
-t_tuple refracted_color(t_world world, t_intersection comps, int remaining, t_intersects *xs)
+t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_intersects *xs)
 {
 	t_tuple	refract_color;
 	t_ray	refracted_ray;
@@ -202,7 +202,7 @@ t_tuple refracted_color(t_world world, t_intersection comps, int remaining, t_in
 ** @param comps: t_intersection The intersection.
 ** @return: t_tuple The color at the intersection.
 */
-t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersects *xs)
+t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_intersects *xs)
 {
 	int	shadowed;
 	t_tuple	surface;
@@ -210,8 +210,8 @@ t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersec
 	t_tuple refracted;
 	t_tuple	color;
 
-	shadowed = is_shadowed(world, comps.over_point);
-	surface = lighting(comps.object->material, *comps.object, world.light, comps.over_point, comps.eyev, comps.normalv, shadowed);
+	shadowed = is_shadowed(*world, comps.over_point);
+	surface = lighting(comps.object->material, *comps.object, world->light, comps.over_point, comps.eyev, comps.normalv, shadowed);
 	reflected = reflected_color(world, comps, remaining, xs);
 	refracted = refracted_color(world, comps, remaining, xs);
 	printf("📌 Shade Hit Debug: Surface (%.5f, %.5f, %.5f), Reflected (%.5f, %.5f, %.5f), Refracted (%.5f, %.5f, %.5f)\n",
@@ -225,7 +225,7 @@ t_tuple	shade_hit(t_world world, t_intersection comps, int remaining, t_intersec
 	return (color);
 }
 
-t_tuple	color_at(t_world world, t_ray ray, int remaining)
+t_tuple	color_at(t_world *world, t_ray ray, int remaining)
 {
 	t_intersects	xs;
 	t_intersection	*hits;
@@ -266,7 +266,7 @@ int is_shadowed(t_world world, t_tuple point)
 	v = substract_tuple(world.light.position, point);
 	distance = magnitude(v);
 	r = create_ray(point, normalize(v));
-	xs = intersect_world(world, r);
+	xs = intersect_world(&world, r);
 	hit_obj = hit(xs);
 	if (hit_obj && hit_obj->t < distance)
 	{

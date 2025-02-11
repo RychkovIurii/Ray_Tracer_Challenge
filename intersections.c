@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:42:12 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 00:52:39 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:31:53 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
     for (i = 0; i < xs->count; i++)
     {
         // If this intersection is the hit, record n1 (before processing)
+		printf("Object at intersection %d: %p, hit.object: %p\n", i, xs->array[i].object, hit.object);
         if (xs->array[i].t == hit.t && xs->array[i].object == hit.object)
         {
             if (!containers /* || ft_lstlast(containers) == NULL */)
@@ -157,6 +158,7 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
         temp = containers;
         while (temp)
         {
+			printf("temp->content: %p, xs->array[%d].object: %p\n", temp->content, i, xs->array[i].object);
             if (temp->content == xs->array[i].object)
             {
                 ft_lstremove(&containers, temp->content);
@@ -169,6 +171,7 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
             ft_lstadd_back(&containers, ft_lstnew(xs->array[i].object));
 
         // If this intersection is the hit, record n2 (after processing) and break.
+		printf("Object at intersection %d: %p, hit.object: %p\n", i, xs->array[i].object, hit.object);
         if (xs->array[i].t == hit.t && xs->array[i].object == hit.object)
         {
             if (!containers /* || ft_lstlast(containers) == NULL */)
