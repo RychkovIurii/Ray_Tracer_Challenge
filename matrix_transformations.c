@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:46:44 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/05 13:54:06 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 23:24:59 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ t_matrix	scaling_matrix(double x, double y, double z)
 {
 	t_matrix	result;
 
+	if (x == 0 || y == 0 || z == 0)
+    {
+        printf("Error: Scaling matrix has a zero component and is not invertible!\n");
+        exit(1);
+    }
 	result = identity_matrix(4);
 	result.matrix[0][0] = x;
 	result.matrix[1][1] = y;

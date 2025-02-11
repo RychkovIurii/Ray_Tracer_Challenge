@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 10:57:48 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:34:02 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,11 @@ t_matrix	inverse_matrix(t_matrix a)
 	int			i;
 	int			j;
 
-	if (a.matrix == NULL)
+	/* if (a.matrix == NULL)
 	{
 		printf("Error: Received NULL matrix\n");
 		exit(1); // Handle error, potentially return an invalid matrix
-	}
+	} */
 	det = determinant(a);
 	if (fabs(det) < 1e-6) //(det == 0)
 	{
