@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 18:27:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:51:48 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_i
 
 	if (remaining <= 0)
 		return (create_color(0, 0, 0));
-	if (comps.object->material.transparency == 0)
+	if (comps.object->material.transparency <= EPSILON)
 		return (create_color(0, 0, 0));
 	n_ratio = comps.n1 / comps.n2;
 	cos_i = dot(comps.eyev, comps.normalv);
@@ -214,7 +214,7 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	t_tuple	surface;
 	t_tuple reflected;
 	t_tuple refracted;
-	double	reflectance;
+	/* double	reflectance; */
 	t_tuple	color;
 
 	shadowed = is_shadowed(*world, comps.over_point);
@@ -222,16 +222,16 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	reflected = reflected_color(world, comps, remaining, xs);
 	refracted = refracted_color(world, comps, remaining, xs);
 	// If the material is both reflective and transparent, use Schlick's approximation.
-	if (comps.object->material.transparency > 0 && comps.object->material.reflective > 0)
+	/* if (comps.object->material.transparency > 0 && comps.object->material.reflective > 0)
 	{
 		reflectance = schlick(comps);  // Compute the reflectance at the intersection.
 		color = add_tuple(surface,
 				add_tuple(multiply_tuple_scalar(reflected, reflectance),
 						multiply_tuple_scalar(refracted, 1.0 - reflectance)));
 	}
-	else if (comps.object->material.transparency > 0)
+	else  */if (comps.object->material.transparency > EPSILON)
 	{
-		color = add_tuple(refracted, add_tuple(surface, reflected));
+		color = add_tuple(surface, add_tuple(refracted, reflected));
 	}
 	else
 	{
