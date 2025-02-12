@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 22:20:03 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 00:15:58 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:48:57 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_world default_world()
 
     // First Sphere
     t_shape *sphere1 = (t_shape *)calloc(1, sizeof(t_shape));
+    sphere1->center = point(0, 0, 0);
+    sphere1->radius = 1;
     sphere1->type = SHAPE_SPHERE;
     sphere1->transform = identity_matrix(4);
     sphere1->material = material(create_color(0.8, 1.0, 0.6), 0.1, 0.7, 0.2, 200.0, 0);
@@ -33,6 +35,8 @@ t_world default_world()
     // Second Sphere (Smaller)
     t_shape *sphere2 = (t_shape *)calloc(1, sizeof(t_shape));
     sphere2->type = SHAPE_SPHERE;
+    sphere2->center = point(0, 0, 0);
+    sphere2->radius = 0.5;
     sphere2->transform = scaling_matrix(0.5, 0.5, 0.5);
     sphere2->material = material(create_color(1, 0, 0), 0.1, 0.7, 0.2, 200.0, 0);
     world.shapes[1] = sphere2;
@@ -45,6 +49,8 @@ t_shape *glass_sphere()
 {
     t_shape *s = (t_shape *)calloc(1, sizeof(t_shape));
     s->type = SHAPE_SPHERE;
+    s->center = point(0, 0, 0);
+    s->radius = 1;
     s->transform = identity_matrix(4);
     s->material = material(create_color(1, 1, 1), 0.1, 0.9, 0.9, 200.0, 0);
     s->material.transparency = 1.0;      // Fully transparent
@@ -139,6 +145,8 @@ void test_under_point()
     t_ray r = create_ray(point(0, 0, -5), vector(0, 0, 1));
     t_shape *shape = glass_sphere();
     shape->transform = translation_matrix(0, 0, 1);
+    shape->center = point(0, 0, 1);
+    shape->radius = 1;
 
     t_intersects xs;
     xs.count = 1;
@@ -173,7 +181,7 @@ void test_refracted_color_opaque()
     xs.array[1] = (t_intersection){6, shape};
 
     t_intersection comps = prepare_computations(xs.array[0], r, &xs);
-    t_tuple color = refracted_color(world, comps, 5, NULL);
+    t_tuple color = refracted_color(&world, comps, 5, NULL);
 
     if (is_tuples_equal(color, create_color(0, 0, 0)))
         printf("✅ Test Passed: Refracted color for opaque surface is black.\n");
@@ -203,7 +211,7 @@ void test_refracted_color_max_depth()
     xs.array[1] = (t_intersection){6, shape};
 
     t_intersection comps = prepare_computations(xs.array[0], r, &xs);
-    t_tuple color = refracted_color(world, comps, 0, NULL);  // Max depth reached
+    t_tuple color = refracted_color(&world, comps, 0, NULL);  // Max depth reached
 
     if (is_tuples_equal(color, create_color(0, 0, 0)))
         printf("✅ Test Passed: Refracted color at max depth is black.\n");
@@ -233,7 +241,7 @@ void test_refracted_color_total_internal_reflection()
     xs.array[1] = (t_intersection){sqrt(2)/2, shape};   // Second intersection (inside sphere)
 
     t_intersection comps = prepare_computations(xs.array[1], r, &xs);
-    t_tuple color = refracted_color(world, comps, 5, NULL);
+    t_tuple color = refracted_color(&world, comps, 5, NULL);
 
     if (is_tuples_equal(color, create_color(0, 0, 0)))
         printf("✅ Test Passed: Total internal reflection results in black.\n");

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:42:12 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/11 13:51:12 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:30:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,17 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
     comps.point = get_ray_position(ray, comps.t);
     comps.eyev = negate_tuple(ray.direction);
     comps.normalv = normal_at(comps.object, comps.point);
-    comps.over_point = add_tuple(comps.point, multiply_tuple_scalar(comps.normalv, EPSILON));
-    comps.under_point = substract_tuple(comps.point, multiply_tuple_scalar(comps.normalv, EPSILON));
-    comps.reflectv = reflect(ray.direction, comps.normalv);
     comps.inside = 0;
     if (dot(comps.normalv, comps.eyev) < 0)
     {
         comps.inside = 1;
         comps.normalv = negate_tuple(comps.normalv);
     }
+
+	comps.over_point = add_tuple(comps.point, multiply_tuple_scalar(comps.normalv, EPSILON));
+    comps.under_point = substract_tuple(comps.point, multiply_tuple_scalar(comps.normalv, EPSILON));
+	comps.reflectv = reflect(ray.direction, comps.normalv);
+	
     comps.n1 = 1.0;
     comps.n2 = 1.0;
 
@@ -141,7 +143,7 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
     for (i = 0; i < xs->count; i++)
     {
         // If this intersection is the hit, record n1 (before processing)
-        if (xs->array[i].t == hit.t && xs->array[i].object == hit.object)
+        if (xs->array[i].object == hit.object && fabs(xs->array[i].t - hit.t) < EPSILON)
         {
             if (!containers /* || ft_lstlast(containers) == NULL */)
                 comps.n1 = 1.0;
@@ -169,7 +171,7 @@ t_intersection prepare_computations(t_intersection hit, t_ray ray, t_intersects 
             ft_lstadd_back(&containers, ft_lstnew(xs->array[i].object));
 
         // If this intersection is the hit, record n2 (after processing) and break.
-        if (xs->array[i].t == hit.t && xs->array[i].object == hit.object)
+        if (xs->array[i].object == hit.object && fabs(xs->array[i].t - hit.t) < EPSILON)
         {
             if (!containers /* || ft_lstlast(containers) == NULL */)
                 comps.n2 = 1.0;

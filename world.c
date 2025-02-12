@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/12 16:51:48 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:38:15 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_tuple reflected_color(t_world *world, t_intersection comps, int remaining, t_i
 
 	if (remaining <= 0)
 		return (create_color(0, 0, 0));
-	if (comps.object->material.reflective == 0)
+	if (comps.object->material.reflective <= EPSILON)
 		return (create_color(0, 0, 0));
 	reflected_ray = create_ray(comps.over_point, comps.reflectv);
 /* 	if (remaining < DEFAULT_REMAINING)
@@ -160,7 +160,7 @@ t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_i
 
 	if (remaining <= 0)
 		return (create_color(0, 0, 0));
-	if (comps.object->material.transparency <= EPSILON)
+	if (comps.object->material.transparency < EPSILON)
 		return (create_color(0, 0, 0));
 	n_ratio = comps.n1 / comps.n2;
 	cos_i = dot(comps.eyev, comps.normalv);
@@ -169,16 +169,21 @@ t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_i
 		return (create_color(0, 0, 0));
 	cos_t = sqrt(1.0 - sin2_t);
 	direction = substract_tuple(multiply_tuple_scalar(comps.normalv, n_ratio * cos_i - cos_t), multiply_tuple_scalar(comps.eyev, n_ratio));
-	refracted_ray = create_ray(comps.under_point, direction);
-/* 	if (remaining < DEFAULT_REMAINING)
-	{
-		free(xs->array);
-		xs->array = NULL;
-	} */
-	refract_color = color_at(world, refracted_ray, remaining - 1);
+	/* if (comps.inside) */
+    refracted_ray = create_ray(comps.under_point, direction);
+    /* else
+        refracted_ray = create_ray(comps.over_point, direction); */
+    refract_color = color_at(world, refracted_ray, remaining - 1);
 	return (multiply_tuple_scalar(refract_color, comps.object->material.transparency));
 }
-
+ /* 
+ The function uses Schlick's approximation to compute the reflectance.
+ Schlick's approximation is a simple function that estimates the reflectance at an intersection.
+ It is based on the Fresnel equations, which describe the behavior of light when it moves between two media.
+ The Fresnel equations are complex, but Schlick's approximation provides a simple way to estimate the reflectance.
+ The function takes the intersection as a parameter and returns the reflectance at that intersection.
+ The reflectance is a value between 0 and 1, where 0 means no reflection and 1 means full reflection.
+ */
 double schlick(t_intersection comps)
 {
 	double	cos;
@@ -192,7 +197,7 @@ double schlick(t_intersection comps)
 	{
 		n_ratio = comps.n1 / comps.n2;
 		sin2_t = n_ratio * n_ratio * (1 - cos * cos);
-		if (sin2_t > 1)
+		if (sin2_t > 1.0)
 			return (1.0);
 		cos_t = sqrt(1.0 - sin2_t);
 		cos = cos_t;
@@ -214,7 +219,7 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	t_tuple	surface;
 	t_tuple reflected;
 	t_tuple refracted;
-	/* double	reflectance; */
+	double	reflectance;
 	t_tuple	color;
 
 	shadowed = is_shadowed(*world, comps.over_point);
@@ -222,14 +227,14 @@ t_tuple	shade_hit(t_world *world, t_intersection comps, int remaining, t_interse
 	reflected = reflected_color(world, comps, remaining, xs);
 	refracted = refracted_color(world, comps, remaining, xs);
 	// If the material is both reflective and transparent, use Schlick's approximation.
-	/* if (comps.object->material.transparency > 0 && comps.object->material.reflective > 0)
+	if (comps.object->material.transparency > EPSILON && comps.object->material.reflective > EPSILON)
 	{
 		reflectance = schlick(comps);  // Compute the reflectance at the intersection.
 		color = add_tuple(surface,
 				add_tuple(multiply_tuple_scalar(reflected, reflectance),
 						multiply_tuple_scalar(refracted, 1.0 - reflectance)));
 	}
-	else  */if (comps.object->material.transparency > EPSILON)
+	else if (comps.object->material.transparency > EPSILON)
 	{
 		color = add_tuple(surface, add_tuple(refracted, reflected));
 	}

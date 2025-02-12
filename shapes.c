@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:40:55 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 17:24:21 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:24:52 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,6 @@ void free_intersects(t_intersects *xs)
 	xs->array = NULL;
 	xs->count = 0;
 }
-
-/* t_matrix identity_matrix(int size)
-{
-	t_matrix id = create_matrix(size);
-	for (int i = 0; i < size; i++)
-		id.matrix[i][i] = 1;
-	return id;
-} */
 
 t_shape create_shape(t_shape_type type)
 {
@@ -89,6 +81,15 @@ t_intersects local_intersect_sphere(t_shape *sphere, t_ray transformed_ray)
 		result.array = NULL;
 		return result;
 	}
+
+/* 	if (discriminant < EPSILON)
+	{
+		result.count = 1;
+		result.array = (t_intersection *)calloc(1, sizeof(t_intersection));
+		result.array[0].t = -b / (2 * a);
+		result.array[0].object = sphere;
+		return result;
+	} */
 
 	result.count = 2;
 	result.array = (t_intersection *)calloc(2, sizeof(t_intersection));

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 13:43:45 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/12 16:54:23 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:36:31 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int main(void)
          to:   [-0.6, 1, -0.8]
          up:   [0, 1, 0]
     --------------------------------------------------------- */
-    t_camera camera = create_camera(150, 75, 1.152);
+    t_camera camera = create_camera(600, 300, 1.152);
     camera.transform = view_transform(
         point(-2.6, 1.5, -3.9),  // camera position ("from")
         point(-0.6, 1, -0.8),     // look-at point ("to")
@@ -366,8 +366,8 @@ int main(void)
     }
     fg_blue->material = material(create_color(0, 0, 0.2),
                                    0,      /* ambient */
-                                   0.4,    /* diffuse */
-                                   0.9,    /* specular */
+                                   0.1,    /* diffuse */
+                                   0.2,    /* specular */
                                    300.0,  /* shininess */
                                    PATTERN_NONE);
     fg_blue->material.reflective = 0.9;
