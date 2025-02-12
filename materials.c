@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:13:58 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/07 15:43:53 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:48:55 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ t_material	material(t_tuple color, double ambient, double diffuse, double specul
 	material.specular = specular;
 	material.shininess = shininess;
 	material.has_pattern = has_pattern;
+	material.reflective = 0.0;
+	material.transparency = 0.0;
+	material.refractive_index = 1.0;
 	/* if (has_pattern)
 		material.pattern = stripe_pattern(create_color(1, 1, 1), create_color(0.941, 0.078, 0.694)); */
 	return (material);

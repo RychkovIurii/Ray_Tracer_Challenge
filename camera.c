@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:09:13 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 13:59:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:22:42 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_ray ray_for_pixel(t_camera camera, int px, int py)
 	return create_ray(origin, direction);
 }
 
-t_canvas *render(t_camera camera, t_world world)
+t_canvas *render(t_camera camera, t_world *world)
 {
 	t_canvas *image = create_canvas(camera.hsize, camera.vsize);
 	//printf("Camera matrix inside render:\n");

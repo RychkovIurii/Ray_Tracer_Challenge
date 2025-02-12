@@ -6,14 +6,12 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:54:15 by irychkov          #+#    #+#             */
-/*   Updated: 2025/01/31 13:05:54 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:07:09 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TUPLE_H
 # define TUPLE_H
-
-# define EPSILON	0.0001f
 
 # include "mini_rt.h"
 

@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 10:56:39 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:33:32 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ void	free_matrix(t_matrix matrix)
 	int	i;
 
 	i = 0;
-	if (!matrix.matrix)
-		return;
+/* 	if (!matrix.matrix)
+		return; */
 	while (i < matrix.size)
 	{
 		free(matrix.matrix[i]);
