@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:13:52 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/12 22:38:15 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:16:20 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_intersects intersect_world(t_world *world, t_ray ray)
 	t_intersection *temp_array;
 	t_intersection *xs_array;
 	t_intersects temp;
-	int count = 0;
 	int total_intersections = 0;
 	temp_array = NULL;
 
@@ -132,6 +131,7 @@ t_tuple reflected_color(t_world *world, t_intersection comps, int remaining, t_i
 	t_ray	reflected_ray;
 	t_tuple	reflect_color;
 
+	(void)xs;
 	if (remaining <= 0)
 		return (create_color(0, 0, 0));
 	if (comps.object->material.reflective <= EPSILON)
@@ -156,8 +156,8 @@ t_tuple refracted_color(t_world *world, t_intersection comps, int remaining, t_i
 	double	sin2_t;
 	double	cos_t;
 	t_tuple	direction;
-	t_intersection	*hit_obj;
 
+	(void)xs;
 	if (remaining <= 0)
 		return (create_color(0, 0, 0));
 	if (comps.object->material.transparency < EPSILON)
@@ -275,7 +275,6 @@ int is_shadowed(t_world world, t_tuple point)
 	t_ray	r;
 	t_intersects	xs;
 	t_intersection	*hit_obj;
-	int	i;
 
 	v = substract_tuple(world.light.position, point);
 	distance = magnitude(v);

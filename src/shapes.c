@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:40:55 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/12 22:24:52 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:13:02 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ t_intersects local_intersect_sphere(t_shape *sphere, t_ray transformed_ray)
 	double		b;
 	double		c;
 	double		discriminant;
-	t_intersection	intersection1;
-	t_intersection	intersection2;
 
 	sphere_to_ray = substract_tuple(transformed_ray.origin, sphere->center);
 	a = dot(transformed_ray.direction, transformed_ray.direction);
@@ -104,7 +102,6 @@ t_intersects local_intersect_sphere(t_shape *sphere, t_ray transformed_ray)
 t_intersects local_intersect_plane(t_shape *plane, t_ray transformed_ray)
 {
 	t_intersects result;
-	t_intersection	intersection;
 
 	if (fabs(transformed_ray.direction.y) < EPSILON)
 	{
@@ -144,6 +141,7 @@ t_tuple local_normal_at_sphere(t_tuple sphere_center, t_tuple local_point)
 
 t_tuple local_normal_at_plane(t_tuple local_point)
 {
+	(void)local_point;
 	return (vector(0, 1, 0));
 }
 

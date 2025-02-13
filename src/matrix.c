@@ -6,7 +6,7 @@
 /*   By: irychkov <irychkov@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:09:25 by irychkov          #+#    #+#             */
-/*   Updated: 2025/02/10 21:33:32 by irychkov         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:10:49 by irychkov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,13 +215,11 @@ t_matrix	transpose_matrix(t_matrix a)
 }
 
 /* Free the memory allocated for a matrix. */
-void	free_matrix(t_matrix matrix)
+/* void	free_matrix(t_matrix matrix)
 {
 	int	i;
 
 	i = 0;
-/* 	if (!matrix.matrix)
-		return; */
 	while (i < matrix.size)
 	{
 		free(matrix.matrix[i]);
@@ -229,3 +227,4 @@ void	free_matrix(t_matrix matrix)
 	}
 	free(matrix.matrix);
 }
+ */
