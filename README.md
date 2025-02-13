@@ -2,6 +2,9 @@
 
 Ray Tracer is a C-based ray tracing project that renders 3D scenes with features like reflections, refractions, and various patterns. This project was developed as a learning exercise and continuously refined through numerous commits.
 
+### Glass-like Transparent Spheres
+![Glass](result/glass.png)
+
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
@@ -94,15 +97,20 @@ Below is a summary of key commit highlights:
 
 
 ## Screenshots
-Screenshots of rendered scenes are available in the repository (see the attached images). These illustrate:
-- Scenes with glass-like transparent spheres.
-- Reflections and multiple patterns on objects.
-- Various test scenes used during development.
-blue.png
-glass.png
-pattern_stripe.png
-patterns_all.png
-refraction_bug.png
+## Screenshots
+Screenshots of rendered scenes are available in the `result/` directory. These illustrate:
+
+### Glass-like Transparent Spheres
+![Glass](result/glass.png)
+
+### Reflections and Multiple Patterns on Objects
+![Pattern Stripe](result/pattern_stripe.png)
+![Patterns All](result/patterns_all.png)
+
+### Various Test Scenes Used During Development
+![Refraction Bug](result/refraction_bug.png)
+---
+![Blue](result/blue.png)
 
 
 ### Makefile
