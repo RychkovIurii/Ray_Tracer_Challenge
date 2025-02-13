@@ -98,6 +98,11 @@ Screenshots of rendered scenes are available in the repository (see the attached
 - Scenes with glass-like transparent spheres.
 - Reflections and multiple patterns on objects.
 - Various test scenes used during development.
+blue.png
+glass.png
+pattern_stripe.png
+patterns_all.png
+refraction_bug.png
 
 
 ### Makefile
